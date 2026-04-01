@@ -6,12 +6,12 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const NAV = {
   es: {
-    links: ["Inicio", "Sobre Mí", "Habilidades", "Proyectos", "Contacto"],
-    hrefs: ["#hero", "#about", "#skills", "#projects", "#contact"],
+    links: ["Inicio", "Sobre Mí", "Habilidades", "Proyectos", "Servicios", "Contacto"],
+    hrefs: ["#hero", "#about", "#skills", "#projects", "#services", "#contact"],
   },
   en: {
-    links: ["Home", "About", "Skills", "Projects", "Contact"],
-    hrefs: ["#hero", "#about", "#skills", "#projects", "#contact"],
+    links: ["Home", "About", "Skills", "Projects", "Services", "Contact"],
+    hrefs: ["#hero", "#about", "#skills", "#projects", "#services", "#contact"],
   },
 };
 
