@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV · Alvaro Ferreira</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #1D1D1F;
+      width: 794px;
+      padding: 52px 56px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 28px;
+      margin-bottom: 28px;
+      border-bottom: 2px solid #E5E5EA;
+    }
+    .name {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 4px;
+    }
+    .title {
+      font-size: 13.5px;
+      font-weight: 400;
+      background: linear-gradient(90deg, #6BBF9E, #5BA8D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 2px;
+    }
+    .location { font-size: 11.5px; color: #6E6E73; }
+
+    .contact-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+      padding-top: 4px;
+    }
+    .contact-item { font-size: 11px; color: #6E6E73; }
+    .contact-item a { color: #1D1D1F; font-weight: 500; text-decoration: none; }
+
+    /* ── Layout ── */
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 32px;
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 26px; }
+    .section-title {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6BBF9E;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #F0F0F2;
+    }
+
+    /* ── Profile ── */
+    .profile-text {
+      font-size: 12.5px;
+      color: #3a3a3c;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    /* ── Entry (experience / education) ── */
+    .entry { margin-bottom: 18px; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3px;
+    }
+    .entry-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1D1D1F;
+    }
+    .entry-date {
+      font-size: 10.5px;
+      color: #AEAEB2;
+      font-weight: 500;
+      white-space: nowrap;
+      padding-top: 1px;
+    }
+    .entry-sub {
+      font-size: 11.5px;
+      color: #6BBF9E;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .entry-desc {
+      font-size: 11.5px;
+      color: #6E6E73;
+      line-height: 1.65;
+    }
+    .entry-desc li {
+      list-style: none;
+      padding-left: 12px;
+      position: relative;
+      margin-bottom: 2px;
+    }
+    .entry-desc li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: #A8D5C2;
+    }
+
+    /* ── Project link ── */
+    .project-link {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 10.5px;
+      color: #5BA8D4;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar .section-title { color: #5BA8D4; }
+
+    /* Skills */
+    .skill-row {
+      margin-bottom: 9px;
+    }
+    .skill-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 500;
+      color: #1D1D1F;
+      margin-bottom: 4px;
+    }
+    .skill-label span { color: #AEAEB2; font-weight: 400; }
+    .bar-bg {
+      height: 4px;
+      background: #F0F0F2;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #A8D5C2, #A8C8E8);
+    }
+
+    /* Tags */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #F5F5F7;
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #1D1D1F;
+      border: 1px solid #E5E5EA;
+    }
+
+    /* Language */
+    .lang-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      padding: 5px 0;
+      border-bottom: 1px solid #F5F5F7;
+    }
+    .lang-row:last-child { border-bottom: none; }
+    .lang-name { font-weight: 500; color: #1D1D1F; }
+    .lang-level {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(168,213,194,0.2), rgba(168,200,232,0.2));
+      color: #6BBF9E;
+    }
+
+    /* Personal */
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      padding: 4px 0;
+      border-bottom: 1px solid #F5F5F7;
+      color: #6E6E73;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row span { color: #1D1D1F; font-weight: 500; }
+
+    /* Footer */
+    .footer {
+      margin-top: 28px;
+      padding-top: 14px;
+      border-top: 1px solid #E5E5EA;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer p { font-size: 9.5px; color: #AEAEB2; }
+    .highlight {
+      background: linear-gradient(90deg, #6BBF9E, #5BA8D4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <h1 class="name">Alvaro Ferreira</h1>
+      <p class="title">Aspiring Software Developer · Frontend & Web</p>
+      <p class="location">Spain</p>
+    </div>
+    <div class="contact-block">
+      <p class="contact-item"><a href="mailto:alvaroferreirajuarez@outlook.com">alvaroferreirajuarez@outlook.com</a></p>
+      <p class="contact-item">GitHub <a href="https://github.com/victoralvaroferreirajuarez-star">@victoralvaroferreirajuarez-star</a></p>
+      <p class="contact-item">LinkedIn <a href="https://www.linkedin.com/in/victor-alvaro-ferreira-juarez-321970322/">Alvaro Ferreira</a></p>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="body-grid">
+
+    <!-- Main column -->
+    <div class="main">
+
+      <!-- Profile -->
+      <div class="section">
+        <p class="section-title">Profile</p>
+        <p class="profile-text">
+          Motivated and self-taught developer with hands-on experience building web applications using modern technologies. Starting a formal Computer Science degree in September 2025, I combine academic preparation with real-world project work. I bring strong customer-facing skills from previous roles and a genuine drive to create clean, functional digital products.
+        </p>
+      </div>
+
+      <!-- Projects -->
+      <div class="section">
+        <p class="section-title">Projects</p>
+
+        <div class="entry">
+          <div class="entry-header">
+            <p class="entry-title">Personal Portfolio Website</p>
+            <p class="entry-date">2025 – Present</p>
+          </div>
+          <p class="entry-sub">Next.js · Tailwind CSS · Framer Motion · TypeScript</p>
+          <ul class="entry-desc">
+            <li>Designed and developed a bilingual (EN/ES) portfolio from scratch.</li>
+            <li>Implemented animated UI components, responsive layout and smooth scroll.</li>
+            <li>Deployed on Vercel with custom domain in progress.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <p class="entry-title">VaultShop — Streaming Platform Store</p>
+            <p class="entry-date">2025 – Present</p>
+          </div>
+          <p class="entry-sub">Web Development · E-commerce · AI-assisted</p>
+          <ul class="entry-desc">
+            <li>Built a functional online store for selling streaming platform accounts.</li>
+            <li>Handled product listing, UI design and deployment independently.</li>
+          </ul>
+          <a class="project-link" href="https://vaultshop-csih.onrender.com/">vaultshop-csih.onrender.com →</a>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="section">
+        <p class="section-title">Experience</p>
+
+        <div class="entry">
+          <div class="entry-header">
+            <p class="entry-title">Customer Service Representative</p>
+            <p class="entry-date">Various roles</p>
+          </div>
+          <p class="entry-sub">Retail & Services</p>
+          <ul class="entry-desc">
+            <li>Handled customer inquiries, complaints and transactions across multiple environments.</li>
+            <li>Maintained calm and professionalism in high-volume, fast-paced settings.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <p class="entry-title">Retail & Cashier — Minimarket</p>
+            <p class="entry-date">Peru</p>
+          </div>
+          <p class="entry-sub">Minimarket · General Retail</p>
+          <ul class="entry-desc">
+            <li>Managed product stocking, inventory replenishment and cash register operations.</li>
+            <li>Responsible for daily cash handling and customer-facing service.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <p class="entry-title">Sales & Cashier — Bakery</p>
+            <p class="entry-date">Peru</p>
+          </div>
+          <p class="entry-sub">Food Retail</p>
+          <ul class="entry-desc">
+            <li>Assisted customers with product selection and managed point-of-sale transactions.</li>
+            <li>Consistently delivered friendly and efficient service in a retail environment.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="section">
+        <p class="section-title">Education</p>
+
+        <div class="entry">
+          <div class="entry-header">
+            <p class="entry-title">BSc Computer Science</p>
+            <p class="entry-date">Sep 2025 – Present</p>
+          </div>
+          <p class="entry-sub">University · Spain</p>
+          <ul class="entry-desc">
+            <li>Formal education in software engineering, algorithms and systems.</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <p class="entry-title">Bachillerato (Secondary School Diploma)</p>
+            <p class="entry-date">Completed 2025</p>
+          </div>
+          <p class="entry-sub">Spain</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Personal info -->
+      <div class="section">
+        <p class="section-title">Personal</p>
+        <div class="info-row">Date of birth <span>25 Jun 2006</span></div>
+        <div class="info-row">Nationality <span>Spanish</span></div>
+        <div class="info-row">Location <span>Spain</span></div>
+      </div>
+
+      <!-- Languages -->
+      <div class="section">
+        <p class="section-title">Languages</p>
+        <div class="lang-row">
+          <span class="lang-name">Spanish</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-row">
+          <span class="lang-name">English</span>
+          <span class="lang-level">Basic</span>
+        </div>
+      </div>
+
+      <!-- Technical skills -->
+      <div class="section">
+        <p class="section-title">Technical Skills</p>
+
+        <div class="skill-row">
+          <div class="skill-label">HTML & CSS <span>Intermediate</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:55%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">JavaScript <span>Basic</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:35%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">React / Next.js <span>Learning</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:28%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Python <span>Basic</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:25%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Git & GitHub <span>Basic</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:40%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label">Tailwind CSS <span>Intermediate</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width:50%"></div></div>
+        </div>
+      </div>
+
+      <!-- Soft skills -->
+      <div class="section">
+        <p class="section-title">Soft Skills</p>
+        <div class="tags">
+          <span class="tag">Customer service</span>
+          <span class="tag">Communication</span>
+          <span class="tag">Self-taught</span>
+          <span class="tag">Problem solving</span>
+          <span class="tag">Adaptability</span>
+          <span class="tag">Attention to detail</span>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="section">
+        <p class="section-title">Tools</p>
+        <div class="tags">
+          <span class="tag">VS Code</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Vercel</span>
+          <span class="tag">Figma</span>
+          <span class="tag">Framer Motion</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Alvaro Ferreira · <span class="highlight">avalito</span> · alvaroferreirajuarez@outlook.com</p>
+    <p>Updated April 2026</p>
+  </div>
+
+</body>
+</html>
