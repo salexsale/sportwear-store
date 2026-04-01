@@ -11,6 +11,33 @@ type Message = {
   created_at: string;
 };
 
+const playNotificationSound = () => {
+  try {
+    const AudioCtx =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext })
+        .webkitAudioContext;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.12);
+
+    gain.gain.setValueAtTime(0.25, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.35);
+  } catch {
+    // audio not available
+  }
+};
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -20,12 +47,22 @@ export default function ChatWidget() {
   const [initializing, setInitializing] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const knownIdsRef = useRef<Set<string>>(new Set());
 
   const fetchMessages = async (sid: string) => {
     try {
       const res = await fetch(`/api/chat/${sid}`);
-      const data = await res.json();
-      if (Array.isArray(data)) setMessages(data);
+      const data: Message[] = await res.json();
+      if (Array.isArray(data)) {
+        const newAdminMsg = data.some(
+          (m) => m.sender === "admin" && !knownIdsRef.current.has(m.id)
+        );
+        if (newAdminMsg && knownIdsRef.current.size > 0) {
+          playNotificationSound();
+        }
+        data.forEach((m) => knownIdsRef.current.add(m.id));
+        setMessages(data);
+      }
     } catch {
       // ignore
     }
