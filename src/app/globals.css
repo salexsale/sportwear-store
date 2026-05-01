@@ -60,20 +60,23 @@ body {
   color: #0f172a;
 }
 
-/* Marquee envíos (hero) */
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
+/* Franja de envíos: nombre propio para no chocar con utilidades `animate-*` de Tailwind */
+@keyframes fpt-shipping-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
   }
-  to {
-    transform: translateX(-50%);
+  100% {
+    transform: translate3d(-50%, 0, 0);
   }
 }
-.animate-marquee-scroll {
-  animation: marquee-scroll 42s linear infinite;
+.fpt-shipping-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: fpt-shipping-marquee 38s linear infinite;
+  will-change: transform;
 }
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee-scroll {
+  .fpt-shipping-marquee-track {
     animation: none;
   }
 }

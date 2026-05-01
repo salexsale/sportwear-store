@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/CartContext";
+import { SHIPPING_MARQUEE_LINES } from "@/lib/shipping-marquee";
 
 const NAV = {
   es: {
@@ -38,33 +39,33 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      <div className="h-1 w-full bg-gradient-to-r from-[#166534] via-[#facc15] to-[#166534]" />
-      <div className="max-w-[1200px] mx-auto px-3 sm:px-5 flex items-center justify-between min-h-[88px] md:min-h-[104px] py-2 md:py-3">
-        <a href="#hero" className="flex items-center shrink-0 py-1" aria-label={lang === "es" ? "Inicio" : "Home"}>
+      <div className="h-1 w-full shrink-0 bg-gradient-to-r from-[#166534] via-[#facc15] to-[#166534]" />
+      <div className="max-w-[1200px] mx-auto px-3 sm:px-5 flex items-center justify-between min-h-[54px] md:min-h-[60px] py-1 md:py-1.5">
+        <a href="#hero" className="flex items-center shrink-0 py-0.5" aria-label={lang === "es" ? "Inicio" : "Home"}>
           <img
             src="/logo.png"
             alt=""
-            className="h-[4.5rem] w-auto sm:h-[5rem] md:h-[5.75rem] max-h-[92px] object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
+            className="h-[3.25rem] w-auto sm:h-[3.5rem] md:h-[3.75rem] max-h-[54px] md:max-h-[60px] object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
           />
         </a>
 
-        <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {links.map((link, i) => (
             <a
               key={i}
               href={hrefs[i]}
-              className="text-[13px] lg:text-[14px] font-bold uppercase tracking-[0.14em] text-white/75 hover:text-[#4ade80] transition-colors"
+              className="text-[11px] lg:text-[12px] font-bold uppercase tracking-[0.14em] text-white/75 hover:text-[#4ade80] transition-colors"
             >
               {link}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={() => setLang(lang === "es" ? "en" : "es")}
-            className="text-[11px] font-bold uppercase tracking-[0.12em] px-3 py-2.5 rounded-sm text-white/85 border border-white/25 hover:bg-white/10 transition-colors"
+            className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.12em] px-2.5 py-2 rounded-sm text-white/85 border border-white/25 hover:bg-white/10 transition-colors"
           >
             {lang === "es" ? "EN" : "ES"}
           </button>
@@ -72,10 +73,10 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
-            className="relative flex items-center justify-center w-11 h-11 rounded-sm bg-[#166534] hover:bg-[#14532d] text-white transition-colors"
+            className="relative flex items-center justify-center w-10 h-10 rounded-sm bg-[#166534] hover:bg-[#14532d] text-white transition-colors"
             aria-label="Carrito"
           >
-            <ShoppingBag size={20} strokeWidth={1.75} />
+            <ShoppingBag size={18} strokeWidth={1.75} />
             <AnimatePresence>
               {cartCount > 0 && (
                 <motion.span
@@ -92,7 +93,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="md:hidden flex flex-col justify-center items-center gap-[5px] w-11 h-11 text-white"
+            className="md:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 text-white"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
@@ -112,6 +113,23 @@ export default function Navbar() {
               }`}
             />
           </button>
+        </div>
+      </div>
+
+      <div
+        className="overflow-hidden bg-[#166534] border-t border-[#facc15]/30"
+        aria-label={lang === "es" ? "Información de envíos" : "Shipping information"}
+      >
+        <div className="fpt-shipping-marquee-track">
+          {[...SHIPPING_MARQUEE_LINES[lang], ...SHIPPING_MARQUEE_LINES[lang]].map((line, i) => (
+            <span
+              key={`${i}-${line}`}
+              className="inline-flex items-center gap-2 md:gap-3 shrink-0 px-6 md:px-12 py-1.5 md:py-2 text-[11px] sm:text-[12px] md:text-[13px] font-black uppercase tracking-[0.1em] text-white whitespace-nowrap"
+            >
+              <span className="h-1.5 w-1.5 shrink-0 rounded-sm bg-[#facc15]" aria-hidden />
+              {line}
+            </span>
+          ))}
         </div>
       </div>
 
