@@ -5,6 +5,10 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ sessionId: string }> }
 ) {
+  if (!supabase) {
+    return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+  }
+
   const { sessionId } = await params;
 
   const { data, error } = await supabase
@@ -21,6 +25,10 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ sessionId: string }> }
 ) {
+  if (!supabase) {
+    return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+  }
+
   const { sessionId } = await params;
   const { content } = await req.json();
 
