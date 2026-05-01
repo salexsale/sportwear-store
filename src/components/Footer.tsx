@@ -5,11 +5,11 @@ import { useLanguage } from "@/context/LanguageContext";
 const CONTENT = {
   es: {
     rights: "Todos los derechos reservados.",
-    contact: "Contacto: info@futbolparatodos.com",
+    contact: "info@futbolparatodos.com",
   },
   en: {
     rights: "All rights reserved.",
-    contact: "Contact: info@futbolparatodos.com",
+    contact: "info@futbolparatodos.com",
   },
 };
 
@@ -19,14 +19,12 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#111111] border-t border-white/[0.06] py-8">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-        <p className="text-xs text-[#6E6E73]">
+    <footer className="bg-[#f5f5f7] border-t border-black/[0.06] py-8">
+      <div className="max-w-[980px] mx-auto px-4 md:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p className="text-[12px] text-[#6e6e73]">
           © {year} FutbolParaTodos. {t.rights}
         </p>
-        <p className="text-xs text-[#6E6E73]">
-          {t.contact}
-        </p>
+        <p className="text-[12px] text-[#6e6e73]">{t.contact}</p>
       </div>
     </footer>
   );

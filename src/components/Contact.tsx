@@ -7,24 +7,22 @@ import { openWhatsApp } from "@/lib/whatsapp";
 
 const CONTENT = {
   es: {
-    label: "Pedidos",
-    title: "Hablemos por WhatsApp.",
+    label: "Atención al cliente",
+    title: "¿Dudas con tu talla o envío?",
     subtitle:
-      "Catálogo y asesoramiento personalizado. Escríbenos y cerramos talla, envío y forma de pago.",
-    cta: "Abrir chat en WhatsApp",
-    hint: "Pulsa y se abrirá WhatsApp con un mensaje de ejemplo; cámbialo o amplía lo que necesites.",
+      "Escríbenos por WhatsApp. Te respondemos con el catálogo y los siguientes pasos.",
+    cta: "Abrir WhatsApp",
     msg:
-      "Hola, vengo desde FutbolParaTodos. Me interesa información sobre camisetas / pedidos.",
+      "Hola, vengo desde FutbolParaTodos. Me gustaría ayuda con un pedido o una camiseta.",
   },
   en: {
-    label: "Orders",
-    title: "Message us on WhatsApp.",
+    label: "Customer care",
+    title: "Questions about fit or shipping?",
     subtitle:
-      "Catalog and personal advice. Write to us and we’ll confirm size, shipping, and payment.",
-    cta: "Open WhatsApp chat",
-    hint: "Opens WhatsApp with a sample message you can edit before sending.",
+      "Message us on WhatsApp. We’ll reply with catalog details and next steps.",
+    cta: "Open WhatsApp",
     msg:
-      "Hi, I'm contacting you from FutbolParaTodos. I'd like information about jerseys / ordering.",
+      "Hi, I'm messaging from FutbolParaTodos. I'd like help with an order or a jersey.",
   },
 };
 
@@ -33,47 +31,32 @@ export default function Contact() {
   const t = CONTENT[lang];
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-[#0a0a0a] text-white overflow-hidden relative">
-      <div
-        className="pointer-events-none absolute top-0 right-0 w-[min(520px,90vw)] h-[520px] opacity-[0.07]"
-        style={{
-          background: "radial-gradient(circle at 70% 30%, #C9A227, transparent 62%)",
-        }}
-      />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="max-w-2xl"
-        >
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#C9A227] mb-4">
-            {t.label}
-          </p>
-          <h2 className="text-[clamp(2.25rem,6vw,3.75rem)] font-semibold leading-[1.08] tracking-tight">
-            {t.title}
-          </h2>
-          <p className="mt-5 text-base md:text-lg text-white/55 leading-relaxed">{t.subtitle}</p>
-        </motion.div>
-
+    <section id="contact" className="py-20 md:py-28 bg-[#f5f5f7] text-[#1d1d1f]">
+      <div className="max-w-[980px] mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.1 }}
-          className="mt-12 md:mt-14 flex flex-col sm:flex-row sm:items-center gap-4"
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.45 }}
+          className="rounded-[28px] bg-white border border-black/[0.06] shadow-[0_12px_40px_-20px_rgba(0,0,0,0.12)] p-8 md:p-12 md:flex md:items-center md:justify-between md:gap-10"
         >
-          <button
+          <div className="max-w-lg">
+            <p className="text-[12px] font-medium text-[#f56300] mb-2">{t.label}</p>
+            <h2 className="text-[1.75rem] md:text-[2rem] font-semibold tracking-tight leading-tight">
+              {t.title}
+            </h2>
+            <p className="mt-3 text-[15px] md:text-[17px] text-[#6e6e73] leading-relaxed">{t.subtitle}</p>
+          </div>
+          <motion.button
             type="button"
             onClick={() => openWhatsApp(t.msg)}
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors rounded-sm"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="mt-8 md:mt-0 shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-3.5 text-[15px] font-medium text-white hover:bg-[#20bd5a] transition-colors shadow-lg shadow-black/10"
           >
-            <MessageCircle className="w-4 h-4" strokeWidth={2} />
+            <MessageCircle className="w-5 h-5" strokeWidth={1.75} />
             {t.cta}
-          </button>
-          <p className="text-sm text-white/40 max-w-md">{t.hint}</p>
+          </motion.button>
         </motion.div>
       </div>
     </section>

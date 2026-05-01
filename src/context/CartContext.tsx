@@ -10,6 +10,12 @@ export interface Product {
   category: string;
   sizes: string[];
   colors: string[];
+  /** Tarjeta del carrusel: clara (tipo Apple) u oscura “Pro”. */
+  cardTheme?: "light" | "dark";
+  /** Texto corto sobre el nombre, ej. “NUEVO”. */
+  badge?: string;
+  /** Línea de marketing bajo el título. */
+  tagline?: { es: string; en: string };
 }
 
 interface CartItem extends Product {
