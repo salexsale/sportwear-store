@@ -16,10 +16,10 @@ export default function WhatsappFab() {
     <button
       type="button"
       onClick={() => openWhatsApp(MSG[lang])}
-      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#166534] text-white shadow-[0_10px_30px_-8px_rgba(22,101,52,0.55)] ring-2 ring-white/90 hover:bg-[#14532d] hover:scale-105 transition-all md:bottom-8 md:right-8"
+      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-sm bg-[#25D366] text-white shadow-[0_12px_40px_-8px_rgba(20,185,92,0.65)] ring-4 ring-[#facc15]/90 hover:brightness-110 hover:scale-105 transition-all md:bottom-8 md:right-8"
       aria-label="WhatsApp"
     >
-      <MessageCircle className="w-7 h-7" strokeWidth={1.5} />
+      <MessageCircle className="w-7 h-7" strokeWidth={2} />
     </button>
   );
 }

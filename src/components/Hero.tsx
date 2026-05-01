@@ -9,52 +9,56 @@ type Slide =
   | { kind: "image"; src: string; alt: string; line1: { es: string; en: string }; line2: { es: string; en: string } }
   | { kind: "video"; src: string; alt: string; line1: { es: string; en: string }; line2: { es: string; en: string } };
 
-/** Añade `kind: "video"` y `src: "/tu-video.mp4"` en /public cuando quieras. */
 const SLIDES: Slide[] = [
   {
     kind: "image",
     src: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=1920&q=80",
     alt: "Fútbol",
-    line1: { es: "Fútbol", en: "Football" },
-    line2: { es: "para todos.", en: "for everyone." },
+    line1: { es: "FÚTBOL", en: "FOOTBALL" },
+    line2: { es: "PARA TODOS", en: "FOR EVERYONE" },
   },
   {
     kind: "image",
     src: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1920&q=80",
     alt: "Camiseta",
-    line1: { es: "Viste", en: "Wear" },
-    line2: { es: "tu pasión.", en: "your passion." },
+    line1: { es: "VISTE", en: "WEAR" },
+    line2: { es: "TU PASIÓN", en: "YOUR PASSION" },
   },
   {
     kind: "image",
     src: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1920&q=80",
     alt: "Estadio",
-    line1: { es: "Colección", en: "Collection" },
-    line2: { es: "24/25.", en: "24/25." },
+    line1: { es: "TEMPORADA", en: "SEASON" },
+    line2: { es: "24 / 25", en: "24 / 25" },
   },
   {
     kind: "image",
     src: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1920&q=80",
     alt: "Campo",
-    line1: { es: "Listos", en: "Match" },
-    line2: { es: "para el partido.", en: "day ready." },
+    line1: { es: "LISTOS", en: "MATCH" },
+    line2: { es: "PARA EL PARTIDO", en: "DAY READY" },
   },
 ];
 
 const COPY = {
-  es: { cta: "Ver camisetas", kicker: "Equipación y colecciones · Pide por WhatsApp" },
-  en: { cta: "See jerseys", kicker: "Kit & collections · Order on WhatsApp" },
+  es: {
+    cta: "Ver camisetas",
+    kicker: "Catálogo · pedidos por WhatsApp",
+    trust: ["Envíos coordinados", "Tallas y equipaciones", "Respuesta rápida"],
+  },
+  en: {
+    cta: "See jerseys",
+    kicker: "Catalog · WhatsApp orders",
+    trust: ["Shipping arranged", "Sizes & kit help", "Quick replies"],
+  },
 };
 
 const AUTO_MS = 7500;
 
-/** Destellos suaves estadio / energía deportiva (sin look “gadget”) */
 const sparkles = [
-  { c: "rgba(34,197,94,0.55)", x: "10%", y: "14%", s: 14, d: 5 },
-  { c: "rgba(202,138,4,0.5)", x: "22%", y: "20%", s: 10, d: 4.2 },
-  { c: "rgba(255,255,255,0.35)", x: "78%", y: "16%", s: 12, d: 4.8 },
-  { c: "rgba(22,101,52,0.45)", x: "86%", y: "26%", s: 9, d: 5.2 },
-  { c: "rgba(234,179,8,0.4)", x: "70%", y: "12%", s: 7, d: 3.8 },
+  { c: "rgba(74,222,128,0.5)", x: "12%", y: "18%", s: 16, d: 5 },
+  { c: "rgba(250,204,21,0.45)", x: "78%", y: "22%", s: 12, d: 4.5 },
+  { c: "rgba(255,255,255,0.25)", x: "88%", y: "12%", s: 10, d: 4 },
 ];
 
 export default function Hero() {
@@ -80,118 +84,169 @@ export default function Hero() {
   const slide = SLIDES[index];
 
   return (
-    <section
-      id="hero"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-[#f0f3ef] pt-[52px] md:pt-[58px]"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div className="relative z-[2] mx-3 md:mx-6 mt-3 mb-3 min-h-[calc(100svh-4.25rem)] md:min-h-[calc(100svh-4.75rem)] rounded-[24px] md:rounded-[28px] overflow-hidden shadow-[0_24px_50px_-18px_rgba(15,23,42,0.35)] ring-1 ring-[#166534]/15">
-        <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
-          {sparkles.map((p, i) => (
-            <motion.span
-              key={i}
-              className="absolute rounded-full blur-[0.5px]"
+    <>
+      <section
+        id="hero"
+        className="relative w-full overflow-hidden bg-[#0f172a] pt-[60px]"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <div className="flex flex-col lg:flex-row lg:min-h-[calc(100svh-60px)]">
+          {/* Panel editorial — muy visible en desktop; en móvil va debajo de la foto */}
+          <div className="order-2 lg:order-1 flex flex-col justify-end lg:justify-center lg:w-[min(44vw,520px)] xl:w-[540px] shrink-0 px-5 sm:px-8 lg:pl-[max(1.25rem,calc(50vw-600px+1rem))] lg:pr-10 py-10 lg:py-16 bg-[#0f172a] border-t-4 lg:border-t-0 lg:border-r-0 lg:border-l-4 border-[#facc15] relative">
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.07]"
               style={{
-                left: p.x,
-                top: p.y,
-                width: p.s,
-                height: p.s,
-                background: p.c,
+                backgroundImage: `repeating-linear-gradient(
+                  -18deg,
+                  transparent,
+                  transparent 12px,
+                  rgba(255,255,255,0.12) 12px,
+                  rgba(255,255,255,0.12) 13px
+                )`,
               }}
-              animate={{ y: [0, -12, 0], opacity: [0.35, 0.65, 0.35], scale: [1, 1.12, 1] }}
-              transition={{ duration: p.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.15 }}
+              aria-hidden
             />
-          ))}
-        </div>
+            <div className="relative z-10">
+              <p className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.22em] text-[#4ade80] mb-4">
+                {t.kicker}
+              </p>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`copy-${index}-${lang}`}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <h1 className="text-[2.5rem] sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-black uppercase leading-[0.95] tracking-[-0.02em] text-white">
+                    <span className="text-[#4ade80]">{slide.line1[lang]}</span>
+                    <span className="block mt-1 text-white/95">{slide.line2[lang]}</span>
+                  </h1>
+                </motion.div>
+              </AnimatePresence>
+              <motion.a
+                href="#products"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex mt-8 items-center justify-center uppercase text-[12px] font-black tracking-[0.14em] bg-[#166534] text-white px-8 py-4 rounded-sm shadow-[0_12px_40px_-10px_rgba(22,101,52,0.7)] hover:bg-[#14532d] ring-2 ring-[#facc15]/40 transition-colors"
+              >
+                {t.cta}
+              </motion.a>
+              <div className="mt-8 hidden lg:flex gap-2">
+                {SLIDES.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    aria-label={`Slide ${i + 1}`}
+                    className={`h-1.5 rounded-sm transition-all duration-300 ${
+                      i === index ? "w-10 bg-[#facc15]" : "w-2 bg-white/25 hover:bg-white/40"
+                    }`}
+                    onClick={() => setIndex(i)}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={slide.src + index}
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0, scale: 1.03 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            {slide.kind === "image" ? (
-              <img
-                src={slide.src}
-                alt={slide.alt}
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            ) : (
-              <video
-                className="absolute inset-0 h-full w-full object-cover"
-                src={slide.src}
-                autoPlay
-                muted
-                playsInline
-                loop
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/80 via-[#0f172a]/25 to-[#14532d]/20" />
-          </motion.div>
-        </AnimatePresence>
+          {/* Imagen / video — ocupa el resto; en móvil primero */}
+          <div className="order-1 lg:order-2 relative flex-1 min-h-[58svh] sm:min-h-[62svh] lg:min-h-[calc(100svh-60px)] px-3 pt-3 pb-0 lg:p-0">
+            <div className="absolute inset-3 lg:inset-0 max-lg:rounded-[20px] overflow-hidden ring-1 ring-white/15 lg:ring-0 shadow-2xl lg:shadow-none">
+              <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden max-lg:rounded-[20px]">
+                {sparkles.map((p, i) => (
+                  <motion.span
+                    key={i}
+                    className="absolute rounded-full blur-[1px]"
+                    style={{
+                      left: p.x,
+                      top: p.y,
+                      width: p.s,
+                      height: p.s,
+                      background: p.c,
+                    }}
+                    animate={{ y: [0, -10, 0], opacity: [0.4, 0.75, 0.4] }}
+                    transition={{ duration: p.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.12 }}
+                  />
+                ))}
+              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={slide.src + index}
+                  className="absolute inset-0 z-0"
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
+                >
+                  {slide.kind === "image" ? (
+                    <img
+                      src={slide.src}
+                      alt={slide.alt}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <video
+                      className="absolute inset-0 h-full w-full object-cover"
+                      src={slide.src}
+                      autoPlay
+                      muted
+                      playsInline
+                      loop
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a]/50 via-transparent to-[#0f172a]/20 lg:from-[#0f172a]/35" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/70 via-transparent to-transparent lg:from-[#0f172a]/50" />
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-        <div className="relative z-10 flex min-h-[calc(100svh-8.5rem)] md:min-h-[calc(100svh-9rem)] flex-col justify-end pb-10 md:pb-14 px-6 md:px-14 max-w-4xl">
-          <motion.div
-            key={`txt-${index}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-          >
-            <p className="text-[11px] md:text-xs font-bold tracking-[0.14em] text-white/90 mb-3 drop-shadow-md uppercase">
-              {t.kicker}
-            </p>
-            <h1 className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-[4rem] font-bold leading-[1.06] tracking-tight text-white drop-shadow-lg">
-              <span className="bg-gradient-to-r from-[#4ade80] via-[#facc15] to-[#fef08a] bg-clip-text text-transparent">
-                {slide.line1[lang]}
-              </span>{" "}
-              <span className="text-white font-semibold">{slide.line2[lang]}</span>
-            </h1>
-            <motion.a
-              href="#products"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex mt-8 items-center justify-center rounded-full bg-[#166534] text-white px-8 py-3.5 text-[15px] font-semibold shadow-lg shadow-[#14532d]/40 hover:bg-[#14532d] transition-colors ring-2 ring-white/20"
-            >
-              {t.cta}
-            </motion.a>
-          </motion.div>
-        </div>
-
-        <button
-          type="button"
-          aria-label="Anterior"
-          className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-md ring-1 ring-white/25 hover:bg-white/25 transition-colors"
-          onClick={() => go(-1)}
-        >
-          <ChevronLeft className="w-6 h-6" strokeWidth={1.5} />
-        </button>
-        <button
-          type="button"
-          aria-label="Siguiente"
-          className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-md ring-1 ring-white/25 hover:bg-white/25 transition-colors"
-          onClick={() => go(1)}
-        >
-          <ChevronRight className="w-6 h-6" strokeWidth={1.5} />
-        </button>
-
-        <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-1.5">
-          {SLIDES.map((_, i) => (
             <button
-              key={i}
               type="button"
-              aria-label={`Slide ${i + 1}`}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                i === index ? "w-6 bg-[#4ade80]" : "w-1.5 bg-white/45 hover:bg-white/65"
-              }`}
-              onClick={() => setIndex(i)}
-            />
-          ))}
+              aria-label="Anterior"
+              className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 items-center justify-center rounded-sm bg-black/50 text-white backdrop-blur-sm ring-1 ring-white/20 hover:bg-black/65 transition-colors"
+              onClick={() => go(-1)}
+            >
+              <ChevronLeft className="w-6 h-6" strokeWidth={2} />
+            </button>
+            <button
+              type="button"
+              aria-label="Siguiente"
+              className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 items-center justify-center rounded-sm bg-black/50 text-white backdrop-blur-sm ring-1 ring-white/20 hover:bg-black/65 transition-colors"
+              onClick={() => go(1)}
+            >
+              <ChevronRight className="w-6 h-6" strokeWidth={2} />
+            </button>
+
+            {/* Dots solo en móvil sobre la imagen */}
+            <div className="lg:hidden absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-1.5">
+              {SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  aria-label={`Slide ${i + 1}`}
+                  className={`h-1 rounded-full transition-all ${
+                    i === index ? "w-6 bg-[#facc15]" : "w-1.5 bg-white/45"
+                  }`}
+                  onClick={() => setIndex(i)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
+      </section>
+
+      {/* Franja tipo club / patrocinador — rompe la monotonía y refuerza deportivo */}
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 bg-[#166534] text-white border-y border-[#facc15]/30">
+        {t.trust.map((line, i) => (
+          <div
+            key={`${i}-${line}`}
+            className="flex items-center justify-center gap-2 px-4 py-3.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.16em] border-b sm:border-b-0 sm:border-r border-white/15 last:border-r-0 last:border-b-0"
+          >
+            <span className="h-1.5 w-1.5 shrink-0 rounded-sm bg-[#facc15]" aria-hidden />
+            {line}
+          </div>
+        ))}
       </div>
-    </section>
+    </>
   );
 }

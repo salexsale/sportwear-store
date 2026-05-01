@@ -7,20 +7,20 @@ import { openWhatsApp } from "@/lib/whatsapp";
 
 const CONTENT = {
   es: {
-    label: "Antes del partido",
+    label: "Banquillo",
     title: "¿Talla, envío o disponibilidad?",
     subtitle:
-      "Escríbenos por WhatsApp: te guiamos con el catálogo y cerramos el pedido contigo.",
-    cta: "Escribir por WhatsApp",
+      "Habla con nosotros por WhatsApp: te enseñamos el catálogo y cerramos el pedido.",
+    cta: "WhatsApp",
     msg:
       "Hola, vengo desde FutbolParaTodos. Necesito ayuda con una camiseta o un pedido.",
   },
   en: {
-    label: "Pre-match",
+    label: "Bench",
     title: "Size, shipping, or stock?",
     subtitle:
-      "Message us on WhatsApp — we’ll walk you through the catalog and your order.",
-    cta: "Chat on WhatsApp",
+      "Hit us on WhatsApp — we’ll show the catalog and sort your order.",
+    cta: "WhatsApp",
     msg:
       "Hi, I'm messaging from FutbolParaTodos. I need help with a jersey or an order.",
   },
@@ -31,38 +31,45 @@ export default function Contact() {
   const t = CONTENT[lang];
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-[#f0f3ef] text-[#0f172a]">
-      <div className="max-w-[980px] mx-auto px-4 md:px-6">
+    <section id="contact" className="py-16 md:py-24 text-[#0f172a] px-4 md:px-6">
+      <div className="max-w-[980px] mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.45 }}
-          className="rounded-[24px] bg-white border border-[#166534]/12 shadow-[0_16px_48px_-20px_rgba(15,23,42,0.2)] p-8 md:p-12 md:flex md:items-center md:justify-between md:gap-10 overflow-hidden relative"
+          className="overflow-hidden rounded-tl-xl rounded-tr-3xl rounded-br-xl rounded-bl-3xl bg-white shadow-[0_24px_60px_-24px_rgba(15,23,42,0.35)] ring-2 ring-[#166534]/20"
         >
-          <div
-            className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#166534]/10"
-            aria-hidden
-          />
-          <div className="max-w-lg relative">
-            <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-[#166534] mb-2">
-              {t.label}
-            </p>
-            <h2 className="text-[1.75rem] md:text-[2rem] font-bold tracking-tight leading-tight">
-              {t.title}
-            </h2>
-            <p className="mt-3 text-[15px] md:text-[17px] text-[#5c6b63] leading-relaxed">{t.subtitle}</p>
+          <div className="h-2 w-full flex overflow-hidden">
+            <div className="h-full flex-1 bg-[#0f172a]" />
+            <div className="h-full flex-1 bg-[#166534]" />
+            <div className="h-full flex-1 bg-[#facc15]" />
+            <div className="h-full flex-1 bg-[#166534]" />
+            <div className="h-full flex-1 bg-[#0f172a]" />
           </div>
-          <motion.button
-            type="button"
-            onClick={() => openWhatsApp(t.msg)}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="mt-8 md:mt-0 shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-3.5 text-[15px] font-semibold text-white hover:bg-[#20bd5a] transition-colors shadow-lg shadow-[#14532d]/15"
-          >
-            <MessageCircle className="w-5 h-5" strokeWidth={1.75} />
-            {t.cta}
-          </motion.button>
+          <div className="p-8 md:p-12 md:flex md:items-center md:justify-between md:gap-12 bg-gradient-to-br from-[#f0f3ef] to-white">
+            <div className="max-w-lg">
+              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#166534] mb-3">
+                {t.label}
+              </p>
+              <h2 className="text-[1.65rem] md:text-[2rem] font-black uppercase tracking-tight leading-tight">
+                {t.title}
+              </h2>
+              <p className="mt-4 text-[15px] md:text-[17px] text-[#5c6b63] leading-relaxed font-medium">
+                {t.subtitle}
+              </p>
+            </div>
+            <motion.button
+              type="button"
+              onClick={() => openWhatsApp(t.msg)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="mt-8 md:mt-0 shrink-0 inline-flex items-center justify-center gap-2 rounded-sm bg-[#25D366] px-10 py-4 text-[13px] font-black uppercase tracking-[0.14em] text-white hover:bg-[#20bd5a] transition-colors shadow-xl ring-2 ring-[#0f172a]/10"
+            >
+              <MessageCircle className="w-5 h-5" strokeWidth={2} />
+              {t.cta}
+            </motion.button>
+          </div>
         </motion.div>
       </div>
     </section>

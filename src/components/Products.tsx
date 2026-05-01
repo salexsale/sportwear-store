@@ -14,20 +14,40 @@ const CATEGORIES = ["Todos", "LaLiga", "Premier League", "Ligue 1", "Serie A", "
 
 const CONTENT = {
   es: {
-    headingAccent: "Tu equipo.",
-    headingRest: "Camisetas y equipación en catálogo.",
-    subtitle: "Desliza, elige una ficha y mira tallas, precio y cómo pedirla por WhatsApp.",
+    headingAccent: "CAMISETAS",
+    headingRest: "y equipación en catálogo.",
+    subtitle:
+      "Fichas grandes, foto clara y detalle al toque: tallas, precio y pedido por WhatsApp.",
     from: "Desde",
-    filter: "Competición",
+    filter: "Filtrar liga",
+    watermark: "FPT",
   },
   en: {
-    headingAccent: "Your club.",
-    headingRest: "Jerseys and kit in our catalog.",
-    subtitle: "Swipe, pick a card, then check sizes, price, and WhatsApp checkout.",
+    headingAccent: "JERSEYS",
+    headingRest: "and kit in the catalog.",
+    subtitle: "Big cards, clear photos, tap for sizes, price, and WhatsApp order.",
     from: "From",
     filter: "League",
+    watermark: "FPT",
   },
 };
+
+function JerseyStripeBar({ dark }: { dark: boolean }) {
+  return (
+    <div
+      className={`flex h-1.5 w-full overflow-hidden rounded-sm ${
+        dark ? "opacity-90" : "opacity-100"
+      }`}
+      aria-hidden
+    >
+      <div className="h-full flex-[2] bg-[#166534]" />
+      <div className="h-full flex-1 bg-white/90" />
+      <div className="h-full flex-[2] bg-[#166534]" />
+      <div className="h-full flex-1 bg-[#facc15]" />
+      <div className="h-full flex-[2] bg-[#166534]" />
+    </div>
+  );
+}
 
 function ShowcaseCard({
   product,
@@ -45,31 +65,41 @@ function ShowcaseCard({
     <motion.article
       data-card
       layout
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className={[
         "snap-center shrink-0 w-[min(88vw,380px)] sm:w-[400px] md:w-[min(42vw,480px)] lg:w-[460px]",
-        "rounded-[24px] overflow-hidden shadow-[0_14px_44px_-14px_rgba(15,23,42,0.28)] border transition-transform duration-300 hover:-translate-y-1",
-        dark
-          ? "bg-[#0f172a] border-white/[0.08]"
-          : "bg-white border-[#166534]/10",
+        "overflow-hidden shadow-[0_20px_50px_-18px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-2",
+        "rounded-tl-md rounded-tr-3xl rounded-br-md rounded-bl-3xl",
+        "ring-2 ring-[#166534]/15",
+        dark ? "bg-[#0f172a]" : "bg-white",
       ].join(" ")}
     >
+      <JerseyStripeBar dark={dark} />
       <button
         type="button"
         onClick={onOpen}
-        className="flex h-full min-h-[480px] md:min-h-[520px] flex-col text-left w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#166534] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f3ef]"
+        className="flex h-full min-h-[460px] md:min-h-[500px] flex-col text-left w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#facc15] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f3ef]"
       >
-        <div className="flex flex-1 flex-col px-8 pt-9 pb-4 md:px-10 md:pt-10">
-          {product.badge && (
-            <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#ca8a04] mb-2">
-              {product.badge}
-            </p>
-          )}
+        <div className="flex flex-1 flex-col px-7 pt-7 pb-3 md:px-9 md:pt-8">
+          <div className="flex items-start justify-between gap-3 mb-3">
+            <span
+              className={`inline-flex text-[10px] font-black uppercase tracking-[0.12em] px-2.5 py-1 rounded-sm ${
+                dark ? "bg-white/10 text-[#4ade80] ring-1 ring-white/15" : "bg-[#166534]/10 text-[#14532d]"
+              }`}
+            >
+              {product.category}
+            </span>
+            {product.badge && (
+              <span className="text-[10px] font-black uppercase tracking-[0.1em] text-[#b45309]">
+                {product.badge}
+              </span>
+            )}
+          </div>
           <h3
-            className={`text-[1.65rem] md:text-[1.85rem] font-bold leading-tight tracking-tight ${
+            className={`text-[1.5rem] md:text-[1.75rem] font-black uppercase leading-[1.05] tracking-tight ${
               dark ? "text-white" : "text-[#0f172a]"
             }`}
           >
@@ -77,37 +107,37 @@ function ShowcaseCard({
           </h3>
           {tagline && (
             <p
-              className={`mt-2 text-[15px] leading-snug max-w-[90%] ${
-                dark ? "text-white/60" : "text-[#5c6b63]"
+              className={`mt-2 text-[14px] md:text-[15px] leading-snug max-w-[95%] font-medium ${
+                dark ? "text-white/55" : "text-[#5c6b63]"
               }`}
             >
               {tagline}
             </p>
           )}
           <div className="mt-5 flex items-baseline gap-2">
-            <span className={`text-xs font-semibold ${dark ? "text-white/45" : "text-[#5c6b63]"}`}>
+            <span className={`text-[11px] font-bold uppercase tracking-wide ${dark ? "text-white/40" : "text-[#5c6b63]"}`}>
               {t.from}
             </span>
             <span
-              className={`text-xl font-bold tabular-nums ${dark ? "text-[#facc15]" : "text-[#166534]"}`}
+              className={`text-2xl font-black tabular-nums tracking-tight ${dark ? "text-[#facc15]" : "text-[#166534]"}`}
             >
               €{product.price.toFixed(2)}
             </span>
           </div>
         </div>
         <div
-          className={`relative mt-auto h-[220px] md:h-[240px] ${
-            dark ? "bg-[#1e293b]" : "bg-gradient-to-b from-[#e8efe9] to-[#dce8de]"
+          className={`relative mt-auto h-[200px] md:h-[230px] ${
+            dark ? "bg-[#1e293b]" : "bg-gradient-to-b from-[#dce8de] to-[#c5d4c7]"
           }`}
         >
           <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#166534]/25 to-transparent"
+            className="pointer-events-none absolute inset-x-0 top-0 h-2 bg-gradient-to-b from-black/10 to-transparent opacity-40"
             aria-hidden
           />
           <img
             src={product.image}
             alt={product.name}
-            className="absolute bottom-0 left-1/2 h-[115%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-2xl transition duration-500 hover:scale-[1.02]"
+            className="absolute bottom-0 left-1/2 h-[118%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)] transition duration-500 hover:scale-[1.03]"
           />
         </div>
       </button>
@@ -134,32 +164,51 @@ export default function Products() {
   };
 
   return (
-    <section
-      id="products"
-      className="py-16 md:py-24 bg-gradient-to-b from-[#e5ebe4] via-[#f0f3ef] to-[#f0f3ef]"
-    >
-      <div className="max-w-[1200px] mx-auto px-4 md:px-6">
+    <section id="products" className="relative py-16 md:py-28 overflow-hidden">
+      <div
+        className="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 text-[clamp(5rem,18vw,14rem)] font-black leading-none text-[#166534]/[0.06] select-none whitespace-nowrap"
+        aria-hidden
+      >
+        {t.watermark}
+      </div>
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(22,101,52,0.04) 80px, rgba(22,101,52,0.04) 81px)",
+        }}
+        aria-hidden
+      />
+
+      <div className="relative max-w-[1200px] mx-auto px-4 md:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
-          className="mb-8 md:mb-10 max-w-3xl"
+          transition={{ duration: 0.5 }}
+          className="mb-10 md:mb-12 flex flex-col md:flex-row md:items-end gap-6 md:gap-10"
         >
-          <h2 className="text-[1.75rem] md:text-[2.25rem] font-bold leading-[1.15] tracking-tight text-[#0f172a]">
-            <span className="text-[#166534]">{t.headingAccent}</span>{" "}
-            <span className="text-[#5c6b63] font-semibold">{t.headingRest}</span>
-          </h2>
-          <p className="mt-3 text-[15px] md:text-[17px] text-[#5c6b63] leading-relaxed">{t.subtitle}</p>
+          <div className="w-1.5 shrink-0 rounded-full bg-gradient-to-b from-[#166534] via-[#4ade80] to-[#facc15] hidden md:block md:min-h-[7rem]" />
+          <div className="max-w-3xl">
+            <h2 className="text-[2rem] md:text-[2.75rem] font-black uppercase leading-[1.05] tracking-tight text-[#0f172a]">
+              <span className="text-[#166534]">{t.headingAccent}</span>{" "}
+              <span className="text-[#5c6b63] font-extrabold normal-case text-[1.35rem] md:text-[1.85rem] tracking-normal">
+                {t.headingRest}
+              </span>
+            </h2>
+            <p className="mt-4 text-[15px] md:text-[17px] text-[#5c6b63] leading-relaxed font-medium border-l-4 border-[#facc15]/80 pl-4">
+              {t.subtitle}
+            </p>
+          </div>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex flex-wrap items-center gap-2 mb-8"
+          className="flex flex-wrap items-center gap-2 mb-10"
         >
-          <span className="text-[12px] font-semibold text-[#5c6b63] mr-1 uppercase tracking-wide">
+          <span className="text-[11px] font-black text-[#166534] mr-1 uppercase tracking-[0.14em]">
             {t.filter}
           </span>
           {CATEGORIES.map((cat) => {
@@ -169,10 +218,10 @@ export default function Products() {
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`rounded-full px-3.5 py-1.5 text-[12px] font-semibold transition-colors ${
+                className={`rounded-sm px-3.5 py-2 text-[11px] font-bold uppercase tracking-wide transition-all ${
                   active
-                    ? "bg-[#166534] text-white shadow-sm shadow-[#166534]/25"
-                    : "bg-white/90 text-[#0f172a]/80 ring-1 ring-[#166534]/15 hover:bg-[#166534]/8"
+                    ? "bg-[#0f172a] text-white shadow-lg shadow-[#0f172a]/25 ring-2 ring-[#facc15]/50"
+                    : "bg-white text-[#0f172a]/85 ring-1 ring-[#166534]/20 hover:bg-[#166534]/10"
                 }`}
               >
                 {cat}
@@ -185,7 +234,7 @@ export default function Products() {
       <div className="relative">
         <div
           ref={scrollerRef}
-          className="flex gap-5 overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory pl-4 md:pl-[max(1rem,calc((100vw-1200px)/2+1rem))] pr-16 md:pr-24 pb-2"
+          className="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory pl-4 md:pl-[max(1rem,calc((100vw-1200px)/2+1rem))] pr-16 md:pr-28 pb-4"
         >
           {filteredProducts.map((product) => (
             <ShowcaseCard key={product.id} product={product} onOpen={() => setDetail(product)} />
@@ -196,9 +245,9 @@ export default function Products() {
           type="button"
           aria-label={lang === "es" ? "Desplazar" : "Scroll"}
           onClick={() => scrollCarousel(1)}
-          className="absolute right-3 md:right-6 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#166534]/20 bg-white text-[#14532d] shadow-md hover:bg-[#166534]/10 transition-colors"
+          className="absolute right-3 md:right-8 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-sm bg-[#0f172a] text-[#facc15] shadow-xl hover:bg-[#166534] transition-colors ring-2 ring-white/80"
         >
-          <ChevronRight className="w-5 h-5" strokeWidth={2} />
+          <ChevronRight className="w-6 h-6" strokeWidth={2.5} />
         </button>
       </div>
 

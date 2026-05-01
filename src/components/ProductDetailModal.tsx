@@ -80,18 +80,25 @@ export default function ProductDetailModal({ product, onClose }: Props) {
           <motion.div
             role="dialog"
             aria-modal="true"
-            className="fixed z-[61] left-1/2 top-1/2 w-[min(100vw-1.25rem,920px)] max-h-[min(92vh,860px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[24px] bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.45)] flex flex-col md:flex-row border border-[#166534]/15 ring-1 ring-[#166534]/5"
+            className="fixed z-[61] left-1/2 top-1/2 w-[min(100vw-1.25rem,920px)] max-h-[min(92vh,860px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-tl-lg rounded-tr-2xl rounded-br-lg rounded-bl-2xl bg-white shadow-[0_32px_90px_-28px_rgba(15,23,42,0.55)] flex flex-col md:flex-row ring-2 ring-[#0f172a]/10"
             initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ type: "spring", damping: 30, stiffness: 320 }}
           >
-            <div className="h-1 w-full md:h-full md:w-1 md:min-h-0 shrink-0 bg-gradient-to-r md:bg-gradient-to-b from-[#166534] via-[#ca8a04] to-[#166534]" />
+            <div className="flex h-2 w-full shrink-0 overflow-hidden md:hidden">
+              <div className="h-full flex-[2] bg-[#166534]" />
+              <div className="h-full flex-1 bg-white" />
+              <div className="h-full flex-[2] bg-[#166534]" />
+              <div className="h-full flex-1 bg-[#facc15]" />
+              <div className="h-full flex-[2] bg-[#166534]" />
+            </div>
+            <div className="hidden md:block h-full w-2 shrink-0 bg-gradient-to-b from-[#166534] via-[#facc15] to-[#166534]" />
 
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#e8efe9] text-[#0f172a] hover:bg-[#dce8de] transition-colors"
+              className="absolute right-3 top-10 md:top-4 z-10 flex h-9 w-9 items-center justify-center rounded-sm bg-[#0f172a] text-white hover:bg-[#166534] transition-colors"
               aria-label={t.close}
             >
               <X size={18} strokeWidth={2} />
@@ -103,7 +110,7 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                 alt={product.name}
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-[#166534] ring-1 ring-[#166534]/20">
+              <span className="absolute left-4 top-14 md:top-4 rounded-sm bg-[#0f172a]/90 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] text-[#facc15] ring-1 ring-white/20">
                 {product.category}
               </span>
             </div>
@@ -114,10 +121,10 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                   {product.badge}
                 </p>
               )}
-              <h2 className="text-2xl md:text-[1.75rem] font-bold tracking-tight leading-tight pr-10">
+              <h2 className="text-2xl md:text-[1.65rem] font-black uppercase tracking-tight leading-tight pr-10">
                 {product.name}
               </h2>
-              <p className="mt-4 text-[1.75rem] font-bold tabular-nums tracking-tight text-[#166534]">
+              <p className="mt-4 text-[1.85rem] font-black tabular-nums tracking-tight text-[#166534]">
                 €{product.price.toFixed(2)}
               </p>
 
@@ -132,9 +139,9 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                         key={s}
                         type="button"
                         onClick={() => setSize(s)}
-                        className={`min-w-[2.75rem] rounded-full px-3.5 py-2 text-[14px] font-semibold transition-colors ${
+                        className={`min-w-[2.75rem] rounded-sm px-3.5 py-2 text-[14px] font-bold transition-colors ${
                           size === s
-                            ? "bg-[#166534] text-white shadow-sm shadow-[#166534]/30"
+                            ? "bg-[#0f172a] text-white shadow-sm"
                             : "bg-[#e8efe9] text-[#0f172a] hover:bg-[#dce8de]"
                         }`}
                       >
@@ -153,9 +160,9 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                         key={c}
                         type="button"
                         onClick={() => setColor(c)}
-                        className={`rounded-full px-3.5 py-2 text-[14px] font-semibold transition-colors ${
+                        className={`rounded-sm px-3.5 py-2 text-[14px] font-bold transition-colors ${
                           color === c
-                            ? "bg-[#166534] text-white shadow-sm shadow-[#166534]/30"
+                            ? "bg-[#0f172a] text-white shadow-sm"
                             : "bg-[#e8efe9] text-[#0f172a] hover:bg-[#dce8de]"
                         }`}
                       >
@@ -171,7 +178,7 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                 <button
                   type="button"
                   onClick={() => openWhatsApp(t.whatsappMsg(product, size, color))}
-                  className="flex-1 rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-white hover:bg-[#20bd5a] transition-colors shadow-md shadow-[#14532d]/10"
+                  className="flex-1 rounded-sm bg-[#25D366] py-3.5 text-[13px] font-black uppercase tracking-wide text-white hover:bg-[#20bd5a] transition-colors shadow-lg"
                 >
                   {t.orderWhatsapp}
                 </button>
@@ -181,7 +188,7 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                     addToCart(product, size, color);
                     onClose();
                   }}
-                  className="flex-1 rounded-full border-2 border-[#166534]/35 bg-transparent py-3.5 text-[15px] font-semibold text-[#166534] hover:bg-[#166534]/8 transition-colors"
+                  className="flex-1 rounded-sm border-2 border-[#0f172a] bg-transparent py-3.5 text-[13px] font-black uppercase tracking-wide text-[#0f172a] hover:bg-[#0f172a]/5 transition-colors"
                 >
                   {t.addCart}
                 </button>

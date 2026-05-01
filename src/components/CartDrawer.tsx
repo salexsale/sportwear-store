@@ -68,16 +68,16 @@ export default function CartDrawer() {
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 32, stiffness: 320 }}
           >
-            <div className="h-0.5 w-full bg-gradient-to-r from-[#166534] to-[#ca8a04]" />
-            <div className="flex items-center justify-between px-5 py-4 border-b border-[#166534]/10 bg-white/90 backdrop-blur-md">
+            <div className="h-1 w-full bg-gradient-to-r from-[#166534] via-[#facc15] to-[#166534]" />
+            <div className="flex items-center justify-between px-5 py-4 bg-[#0f172a] text-white">
               <div className="flex items-center gap-2">
-                <ShoppingBag size={18} strokeWidth={1.5} className="text-[#166534]" />
-                <h2 className="text-[17px] font-bold">{t.title}</h2>
+                <ShoppingBag size={18} strokeWidth={2} className="text-[#facc15]" />
+                <h2 className="text-[14px] font-black uppercase tracking-[0.12em]">{t.title}</h2>
               </div>
               <button
                 type="button"
                 onClick={() => setIsCartOpen(false)}
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#e8efe9] hover:bg-[#dce8de] transition-colors"
+                className="flex h-9 w-9 items-center justify-center rounded-sm bg-white/10 hover:bg-white/20 transition-colors text-white"
                 aria-label="Cerrar"
               >
                 <X size={18} />
@@ -95,7 +95,7 @@ export default function CartDrawer() {
                   {cart.map((item) => (
                     <div
                       key={`${item.id}-${item.selectedSize}-${item.selectedColor}`}
-                      className="flex gap-4 rounded-[20px] bg-white p-4 border border-[#166534]/10 shadow-sm"
+                      className="flex gap-4 rounded-sm bg-white p-4 border-2 border-[#0f172a]/8 shadow-md"
                     >
                       <div className="w-[72px] h-[88px] bg-gradient-to-br from-[#e8efe9] to-[#dce8de] overflow-hidden flex-shrink-0 rounded-2xl ring-1 ring-[#166534]/10">
                         <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
@@ -157,7 +157,7 @@ export default function CartDrawer() {
                 <button
                   type="button"
                   onClick={checkout}
-                  className="w-full rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-white hover:bg-[#20bd5a] transition-colors shadow-md"
+                  className="w-full rounded-sm bg-[#25D366] py-3.5 text-[13px] font-black uppercase tracking-wide text-white hover:bg-[#20bd5a] transition-colors shadow-lg"
                 >
                   {t.checkout}
                 </button>
