@@ -14,18 +14,18 @@ const CATEGORIES = ["Todos", "LaLiga", "Premier League", "Ligue 1", "Serie A", "
 
 const CONTENT = {
   es: {
-    headingAccent: "Lo último.",
-    headingRest: "Echa un vistazo al catálogo.",
-    subtitle: "Toca una ficha para tallas, precio y pedir por WhatsApp.",
+    headingAccent: "Tu equipo.",
+    headingRest: "Camisetas y equipación en catálogo.",
+    subtitle: "Desliza, elige una ficha y mira tallas, precio y cómo pedirla por WhatsApp.",
     from: "Desde",
-    filter: "Filtrar",
+    filter: "Competición",
   },
   en: {
-    headingAccent: "The latest.",
-    headingRest: "Take a look at the lineup.",
-    subtitle: "Tap a card for sizes, price, and WhatsApp checkout.",
+    headingAccent: "Your club.",
+    headingRest: "Jerseys and kit in our catalog.",
+    subtitle: "Swipe, pick a card, then check sizes, price, and WhatsApp checkout.",
     from: "From",
-    filter: "Filter",
+    filter: "League",
   },
 };
 
@@ -51,24 +51,26 @@ function ShowcaseCard({
       transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
       className={[
         "snap-center shrink-0 w-[min(88vw,380px)] sm:w-[400px] md:w-[min(42vw,480px)] lg:w-[460px]",
-        "rounded-[28px] overflow-hidden shadow-[0_12px_40px_-12px_rgba(0,0,0,0.18)] border transition-transform duration-300 hover:-translate-y-1",
-        dark ? "bg-[#1d1d1f] border-white/[0.06]" : "bg-white border-black/[0.06]",
+        "rounded-[24px] overflow-hidden shadow-[0_14px_44px_-14px_rgba(15,23,42,0.28)] border transition-transform duration-300 hover:-translate-y-1",
+        dark
+          ? "bg-[#0f172a] border-white/[0.08]"
+          : "bg-white border-[#166534]/10",
       ].join(" ")}
     >
       <button
         type="button"
         onClick={onOpen}
-        className="flex h-full min-h-[480px] md:min-h-[520px] flex-col text-left w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0066cc] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f5f7]"
+        className="flex h-full min-h-[480px] md:min-h-[520px] flex-col text-left w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#166534] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f3ef]"
       >
         <div className="flex flex-1 flex-col px-8 pt-9 pb-4 md:px-10 md:pt-10">
           {product.badge && (
-            <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[#f56300] mb-2">
+            <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#ca8a04] mb-2">
               {product.badge}
             </p>
           )}
           <h3
-            className={`text-[1.65rem] md:text-[1.85rem] font-semibold leading-tight tracking-tight ${
-              dark ? "text-white" : "text-[#1d1d1f]"
+            className={`text-[1.65rem] md:text-[1.85rem] font-bold leading-tight tracking-tight ${
+              dark ? "text-white" : "text-[#0f172a]"
             }`}
           >
             {product.name}
@@ -76,18 +78,18 @@ function ShowcaseCard({
           {tagline && (
             <p
               className={`mt-2 text-[15px] leading-snug max-w-[90%] ${
-                dark ? "text-white/55" : "text-[#6e6e73]"
+                dark ? "text-white/60" : "text-[#5c6b63]"
               }`}
             >
               {tagline}
             </p>
           )}
           <div className="mt-5 flex items-baseline gap-2">
-            <span className={`text-xs font-medium ${dark ? "text-white/45" : "text-[#6e6e73]"}`}>
+            <span className={`text-xs font-semibold ${dark ? "text-white/45" : "text-[#5c6b63]"}`}>
               {t.from}
             </span>
             <span
-              className={`text-xl font-semibold tabular-nums ${dark ? "text-white" : "text-[#1d1d1f]"}`}
+              className={`text-xl font-bold tabular-nums ${dark ? "text-[#facc15]" : "text-[#166534]"}`}
             >
               €{product.price.toFixed(2)}
             </span>
@@ -95,13 +97,17 @@ function ShowcaseCard({
         </div>
         <div
           className={`relative mt-auto h-[220px] md:h-[240px] ${
-            dark ? "bg-[#2d2d2f]" : "bg-[#f5f5f7]"
+            dark ? "bg-[#1e293b]" : "bg-gradient-to-b from-[#e8efe9] to-[#dce8de]"
           }`}
         >
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#166534]/25 to-transparent"
+            aria-hidden
+          />
           <img
             src={product.image}
             alt={product.name}
-            className="absolute bottom-0 left-1/2 h-[115%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-xl transition duration-500 hover:scale-[1.02]"
+            className="absolute bottom-0 left-1/2 h-[115%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-2xl transition duration-500 hover:scale-[1.02]"
           />
         </div>
       </button>
@@ -128,7 +134,10 @@ export default function Products() {
   };
 
   return (
-    <section id="products" className="py-16 md:py-24 bg-[#f5f5f7]">
+    <section
+      id="products"
+      className="py-16 md:py-24 bg-gradient-to-b from-[#e5ebe4] via-[#f0f3ef] to-[#f0f3ef]"
+    >
       <div className="max-w-[1200px] mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 14 }}
@@ -137,11 +146,11 @@ export default function Products() {
           transition={{ duration: 0.45 }}
           className="mb-8 md:mb-10 max-w-3xl"
         >
-          <h2 className="text-[1.75rem] md:text-[2.25rem] font-semibold leading-[1.15] tracking-tight text-[#1d1d1f]">
-            <span className="text-[#f56300]">{t.headingAccent}</span>{" "}
-            <span className="text-[#6e6e73] font-normal">{t.headingRest}</span>
+          <h2 className="text-[1.75rem] md:text-[2.25rem] font-bold leading-[1.15] tracking-tight text-[#0f172a]">
+            <span className="text-[#166534]">{t.headingAccent}</span>{" "}
+            <span className="text-[#5c6b63] font-semibold">{t.headingRest}</span>
           </h2>
-          <p className="mt-3 text-[15px] md:text-[17px] text-[#6e6e73] leading-relaxed">{t.subtitle}</p>
+          <p className="mt-3 text-[15px] md:text-[17px] text-[#5c6b63] leading-relaxed">{t.subtitle}</p>
         </motion.div>
 
         <motion.div
@@ -150,7 +159,9 @@ export default function Products() {
           viewport={{ once: true }}
           className="flex flex-wrap items-center gap-2 mb-8"
         >
-          <span className="text-[12px] text-[#6e6e73] mr-1">{t.filter}</span>
+          <span className="text-[12px] font-semibold text-[#5c6b63] mr-1 uppercase tracking-wide">
+            {t.filter}
+          </span>
           {CATEGORIES.map((cat) => {
             const active = activeCategory === cat;
             return (
@@ -158,10 +169,10 @@ export default function Products() {
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`rounded-full px-3.5 py-1.5 text-[12px] font-medium transition-colors ${
+                className={`rounded-full px-3.5 py-1.5 text-[12px] font-semibold transition-colors ${
                   active
-                    ? "bg-[#1d1d1f] text-white"
-                    : "bg-[#e8e8ed] text-[#1d1d1f]/80 hover:bg-[#dedee3]"
+                    ? "bg-[#166534] text-white shadow-sm shadow-[#166534]/25"
+                    : "bg-white/90 text-[#0f172a]/80 ring-1 ring-[#166534]/15 hover:bg-[#166534]/8"
                 }`}
               >
                 {cat}
@@ -185,9 +196,9 @@ export default function Products() {
           type="button"
           aria-label={lang === "es" ? "Desplazar" : "Scroll"}
           onClick={() => scrollCarousel(1)}
-          className="absolute right-3 md:right-6 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-black/[0.08] bg-white/90 text-[#1d1d1f] shadow-md backdrop-blur-sm hover:bg-white transition-colors"
+          className="absolute right-3 md:right-6 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#166534]/20 bg-white text-[#14532d] shadow-md hover:bg-[#166534]/10 transition-colors"
         >
-          <ChevronRight className="w-5 h-5" strokeWidth={1.5} />
+          <ChevronRight className="w-5 h-5" strokeWidth={2} />
         </button>
       </div>
 

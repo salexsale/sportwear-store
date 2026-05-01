@@ -13,7 +13,7 @@ const COPY = {
     size: "Talla",
     color: "Color",
     orderWhatsapp: "Pedir por WhatsApp",
-    orderHint: "Se abrirá WhatsApp con tu camiseta y opciones elegidas.",
+    orderHint: "Abrimos WhatsApp con tu camiseta y las opciones que elijas.",
     addCart: "Añadir al carrito",
     close: "Cerrar",
     whatsappMsg: (p: Product, size: string, color: string) =>
@@ -71,7 +71,7 @@ export default function ProductDetailModal({ product, onClose }: Props) {
           <motion.button
             type="button"
             aria-label={t.close}
-            className="fixed inset-0 z-[60] bg-black/32 backdrop-blur-[6px]"
+            className="fixed inset-0 z-[60] bg-[#0f172a]/40 backdrop-blur-[4px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -80,58 +80,62 @@ export default function ProductDetailModal({ product, onClose }: Props) {
           <motion.div
             role="dialog"
             aria-modal="true"
-            className="fixed z-[61] left-1/2 top-1/2 w-[min(100vw-1.25rem,920px)] max-h-[min(92vh,860px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[28px] bg-white shadow-[0_25px_80px_-20px_rgba(0,0,0,0.35)] flex flex-col md:flex-row border border-black/[0.06]"
+            className="fixed z-[61] left-1/2 top-1/2 w-[min(100vw-1.25rem,920px)] max-h-[min(92vh,860px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[24px] bg-white shadow-[0_28px_80px_-24px_rgba(15,23,42,0.45)] flex flex-col md:flex-row border border-[#166534]/15 ring-1 ring-[#166534]/5"
             initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ type: "spring", damping: 30, stiffness: 320 }}
           >
+            <div className="h-1 w-full md:h-full md:w-1 md:min-h-0 shrink-0 bg-gradient-to-r md:bg-gradient-to-b from-[#166534] via-[#ca8a04] to-[#166534]" />
+
             <button
               type="button"
               onClick={onClose}
-              className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#e8e8ed] text-[#1d1d1f] hover:bg-[#dedee3] transition-colors"
+              className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#e8efe9] text-[#0f172a] hover:bg-[#dce8de] transition-colors"
               aria-label={t.close}
             >
               <X size={18} strokeWidth={2} />
             </button>
 
-            <div className="relative w-full md:w-[50%] aspect-[4/5] md:aspect-auto md:min-h-[440px] bg-[#f5f5f7]">
+            <div className="relative w-full md:w-[50%] aspect-[4/5] md:aspect-auto md:min-h-[440px] bg-gradient-to-br from-[#e8efe9] to-[#dce8de]">
               <img
                 src={product.image}
                 alt={product.name}
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-medium text-[#1d1d1f] backdrop-blur-sm">
+              <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-[#166534] ring-1 ring-[#166534]/20">
                 {product.category}
               </span>
             </div>
 
-            <div className="flex flex-col flex-1 p-6 md:p-10 md:pt-11 text-[#1d1d1f]">
+            <div className="flex flex-col flex-1 p-6 md:p-10 md:pt-11 text-[#0f172a]">
               {product.badge && (
-                <p className="text-[11px] font-semibold uppercase tracking-[0.06em] text-[#f56300] mb-1">
+                <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#ca8a04] mb-1">
                   {product.badge}
                 </p>
               )}
-              <h2 className="text-2xl md:text-[1.75rem] font-semibold tracking-tight leading-tight pr-10">
+              <h2 className="text-2xl md:text-[1.75rem] font-bold tracking-tight leading-tight pr-10">
                 {product.name}
               </h2>
-              <p className="mt-4 text-[1.75rem] font-semibold tabular-nums tracking-tight">
+              <p className="mt-4 text-[1.75rem] font-bold tabular-nums tracking-tight text-[#166534]">
                 €{product.price.toFixed(2)}
               </p>
 
               <div className="mt-8 space-y-6 flex-1">
                 <div>
-                  <p className="text-[12px] font-medium text-[#6e6e73] mb-2">{t.size}</p>
+                  <p className="text-[12px] font-semibold text-[#5c6b63] mb-2 uppercase tracking-wide">
+                    {t.size}
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {product.sizes.map((s) => (
                       <button
                         key={s}
                         type="button"
                         onClick={() => setSize(s)}
-                        className={`min-w-[2.75rem] rounded-full px-3.5 py-2 text-[14px] font-medium transition-colors ${
+                        className={`min-w-[2.75rem] rounded-full px-3.5 py-2 text-[14px] font-semibold transition-colors ${
                           size === s
-                            ? "bg-[#1d1d1f] text-white"
-                            : "bg-[#e8e8ed] text-[#1d1d1f] hover:bg-[#dedee3]"
+                            ? "bg-[#166534] text-white shadow-sm shadow-[#166534]/30"
+                            : "bg-[#e8efe9] text-[#0f172a] hover:bg-[#dce8de]"
                         }`}
                       >
                         {s}
@@ -140,17 +144,19 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                   </div>
                 </div>
                 <div>
-                  <p className="text-[12px] font-medium text-[#6e6e73] mb-2">{t.color}</p>
+                  <p className="text-[12px] font-semibold text-[#5c6b63] mb-2 uppercase tracking-wide">
+                    {t.color}
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {product.colors.map((c) => (
                       <button
                         key={c}
                         type="button"
                         onClick={() => setColor(c)}
-                        className={`rounded-full px-3.5 py-2 text-[14px] font-medium transition-colors ${
+                        className={`rounded-full px-3.5 py-2 text-[14px] font-semibold transition-colors ${
                           color === c
-                            ? "bg-[#1d1d1f] text-white"
-                            : "bg-[#e8e8ed] text-[#1d1d1f] hover:bg-[#dedee3]"
+                            ? "bg-[#166534] text-white shadow-sm shadow-[#166534]/30"
+                            : "bg-[#e8efe9] text-[#0f172a] hover:bg-[#dce8de]"
                         }`}
                       >
                         {c}
@@ -160,12 +166,12 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                 </div>
               </div>
 
-              <p className="text-[13px] text-[#6e6e73] mb-4">{t.orderHint}</p>
+              <p className="text-[13px] text-[#5c6b63] mb-4">{t.orderHint}</p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
                   onClick={() => openWhatsApp(t.whatsappMsg(product, size, color))}
-                  className="flex-1 rounded-full bg-[#25D366] py-3.5 text-[15px] font-medium text-white hover:bg-[#20bd5a] transition-colors"
+                  className="flex-1 rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-white hover:bg-[#20bd5a] transition-colors shadow-md shadow-[#14532d]/10"
                 >
                   {t.orderWhatsapp}
                 </button>
@@ -175,7 +181,7 @@ export default function ProductDetailModal({ product, onClose }: Props) {
                     addToCart(product, size, color);
                     onClose();
                   }}
-                  className="flex-1 rounded-full border border-[#1d1d1f]/20 bg-transparent py-3.5 text-[15px] font-medium text-[#1d1d1f] hover:bg-black/[0.04] transition-colors"
+                  className="flex-1 rounded-full border-2 border-[#166534]/35 bg-transparent py-3.5 text-[15px] font-semibold text-[#166534] hover:bg-[#166534]/8 transition-colors"
                 >
                   {t.addCart}
                 </button>
