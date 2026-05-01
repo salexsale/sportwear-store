@@ -43,11 +43,8 @@ export default function Navbar() {
       transition={{ duration: 0.7, ease: [0.6, 0, 0.05, 1] }}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <a
-          href="#hero"
-          className="text-xl font-black tracking-tight bg-gradient-to-r from-[#6BBF9E] to-[#5BA8D4] bg-clip-text text-transparent"
-        >
-          SPORTWEAR
+        <a href="#hero" className="flex items-center gap-2">
+          <img src="/logo.png" alt="FutbolParaTodos" className="h-10 w-auto" />
         </a>
 
         <nav className="hidden md:flex items-center gap-7">
