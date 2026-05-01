@@ -59,3 +59,21 @@ body {
   background: rgba(22, 101, 52, 0.2);
   color: #0f172a;
 }
+
+/* Marquee envíos (hero) */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee-scroll {
+  animation: marquee-scroll 42s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-scroll {
+    animation: none;
+  }
+}

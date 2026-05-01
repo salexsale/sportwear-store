@@ -43,14 +43,27 @@ const SLIDES: Slide[] = [
 const COPY = {
   es: {
     cta: "Ver camisetas",
-    kicker: "Catálogo · pedidos por WhatsApp",
-    trust: ["Envíos coordinados", "Tallas y equipaciones", "Respuesta rápida"],
+    kicker: "Catálogo temporada 24/25",
   },
   en: {
     cta: "See jerseys",
-    kicker: "Catalog · WhatsApp orders",
-    trust: ["Shipping arranged", "Sizes & kit help", "Quick replies"],
+    kicker: "24/25 season catalog",
   },
+};
+
+const MARQUEE = {
+  es: [
+    "Envíos en 8–12 días hábiles",
+    "Envíos seguros",
+    "Envíos internacionales",
+    "Te informamos en cada paso",
+  ],
+  en: [
+    "Delivery in 8–12 business days",
+    "Secure shipping",
+    "International shipping",
+    "We keep you updated",
+  ],
 };
 
 const AUTO_MS = 7500;
@@ -87,11 +100,11 @@ export default function Hero() {
     <>
       <section
         id="hero"
-        className="relative w-full overflow-hidden bg-[#0f172a] pt-[60px]"
+        className="relative w-full overflow-hidden bg-[#0f172a] pt-[96px] md:pt-[112px]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div className="flex flex-col lg:flex-row lg:min-h-[calc(100svh-60px)]">
+        <div className="flex flex-col lg:flex-row lg:min-h-[calc(100svh-112px)]">
           {/* Panel editorial — muy visible en desktop; en móvil va debajo de la foto */}
           <div className="order-2 lg:order-1 flex flex-col justify-end lg:justify-center lg:w-[min(44vw,520px)] xl:w-[540px] shrink-0 px-5 sm:px-8 lg:pl-[max(1.25rem,calc(50vw-600px+1rem))] lg:pr-10 py-10 lg:py-16 bg-[#0f172a] border-t-4 lg:border-t-0 lg:border-r-0 lg:border-l-4 border-[#facc15] relative">
             <div
@@ -108,7 +121,7 @@ export default function Hero() {
               aria-hidden
             />
             <div className="relative z-10">
-              <p className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.22em] text-[#4ade80] mb-4">
+              <p className="text-xs sm:text-sm font-black uppercase tracking-[0.18em] text-[#4ade80] mb-5">
                 {t.kicker}
               </p>
               <AnimatePresence mode="wait">
@@ -119,7 +132,7 @@ export default function Hero() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.35 }}
                 >
-                  <h1 className="text-[2.5rem] sm:text-5xl lg:text-[3.25rem] xl:text-[3.75rem] font-black uppercase leading-[0.95] tracking-[-0.02em] text-white">
+                  <h1 className="text-[2.85rem] sm:text-[3.25rem] lg:text-[3.5rem] xl:text-[4rem] font-black uppercase leading-[0.95] tracking-[-0.02em] text-white">
                     <span className="text-[#4ade80]">{slide.line1[lang]}</span>
                     <span className="block mt-1 text-white/95">{slide.line2[lang]}</span>
                   </h1>
@@ -129,7 +142,7 @@ export default function Hero() {
                 href="#products"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex mt-8 items-center justify-center uppercase text-[12px] font-black tracking-[0.14em] bg-[#166534] text-white px-8 py-4 rounded-sm shadow-[0_12px_40px_-10px_rgba(22,101,52,0.7)] hover:bg-[#14532d] ring-2 ring-[#facc15]/40 transition-colors"
+                className="inline-flex mt-8 items-center justify-center uppercase text-sm sm:text-[15px] font-black tracking-[0.12em] bg-[#166534] text-white px-9 py-4 sm:py-[1.125rem] rounded-sm shadow-[0_12px_40px_-10px_rgba(22,101,52,0.7)] hover:bg-[#14532d] ring-2 ring-[#facc15]/40 transition-colors"
               >
                 {t.cta}
               </motion.a>
@@ -150,7 +163,7 @@ export default function Hero() {
           </div>
 
           {/* Imagen / video — ocupa el resto; en móvil primero */}
-          <div className="order-1 lg:order-2 relative flex-1 min-h-[58svh] sm:min-h-[62svh] lg:min-h-[calc(100svh-60px)] px-3 pt-3 pb-0 lg:p-0">
+          <div className="order-1 lg:order-2 relative flex-1 min-h-[58svh] sm:min-h-[62svh] lg:min-h-[calc(100svh-112px)] px-3 pt-3 pb-0 lg:p-0">
             <div className="absolute inset-3 lg:inset-0 max-lg:rounded-[20px] overflow-hidden ring-1 ring-white/15 lg:ring-0 shadow-2xl lg:shadow-none">
               <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden max-lg:rounded-[20px]">
                 {sparkles.map((p, i) => (
@@ -235,17 +248,22 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* Franja tipo club / patrocinador — rompe la monotonía y refuerza deportivo */}
-      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 bg-[#166534] text-white border-y border-[#facc15]/30">
-        {t.trust.map((line, i) => (
-          <div
-            key={`${i}-${line}`}
-            className="flex items-center justify-center gap-2 px-4 py-3.5 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.16em] border-b sm:border-b-0 sm:border-r border-white/15 last:border-r-0 last:border-b-0"
-          >
-            <span className="h-1.5 w-1.5 shrink-0 rounded-sm bg-[#facc15]" aria-hidden />
-            {line}
-          </div>
-        ))}
+      {/* Franja de envíos en movimiento */}
+      <div
+        className="relative z-10 overflow-hidden bg-[#166534] border-y border-[#facc15]/35"
+        aria-label={lang === "es" ? "Información de envíos" : "Shipping information"}
+      >
+        <div className="flex w-max animate-marquee-scroll">
+          {[...MARQUEE[lang], ...MARQUEE[lang]].map((line, i) => (
+            <span
+              key={`${i}-${line}`}
+              className="inline-flex items-center gap-3 md:gap-4 shrink-0 px-8 md:px-16 py-3.5 md:py-4 text-[13px] sm:text-[14px] md:text-[16px] font-black uppercase tracking-[0.1em] md:tracking-[0.14em] text-white whitespace-nowrap"
+            >
+              <span className="h-2 w-2 shrink-0 rounded-sm bg-[#facc15]" aria-hidden />
+              {line}
+            </span>
+          ))}
+        </div>
       </div>
     </>
   );

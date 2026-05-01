@@ -1,8 +1,16 @@
 import type { Product } from "@/context/CartContext";
 
 /**
- * Catálogo principal. Cuando envíes la carpeta con fotos, sustituimos rutas por
- * `/tu-carpeta/imagen.jpg` (archivos en /public) o URLs.
+ * Catálogo — cada `image` puede ser:
+ *   • URL externa, o
+ *   • Archivo en /public, ej. `/catalogo/real-madrid.jpg` (pon la foto en `fpt/public/catalogo/`).
+ *
+ * Imágenes recomendadas (catálogo / hero):
+ *   • Producto (ficha y modal): 1200–1600 px de ancho, ratio vertical ~4:5 u 3:4 (ej. 1200×1500).
+ *     Formatos: JPG calidad 80–85, o WebP. Peso orientativo < 350 KB por imagen si puedes.
+ *   • Hero / banners: 1920×1080 o 1920×1280, misma calidad; que el sujeto esté centrado por si recortamos.
+ * En código no hay “resolución fija”: el `object-cover` / `object-contain` adapta; si subes muy pocas
+ * pixels se verá borroso en pantallas grandes.
  */
 export const CATALOG_PRODUCTS: Product[] = [
   {

@@ -10,12 +10,10 @@ const NAV = {
   es: {
     links: ["Inicio", "Colección", "Contacto"],
     hrefs: ["#hero", "#products", "#contact"],
-    tagline: "Equipación · WhatsApp",
   },
   en: {
     links: ["Home", "Collection", "Contact"],
     hrefs: ["#hero", "#products", "#contact"],
-    tagline: "Kit · WhatsApp",
   },
 };
 
@@ -31,7 +29,7 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, [menuOpen]);
 
-  const { links, hrefs, tagline } = NAV[lang];
+  const { links, hrefs } = NAV[lang];
 
   return (
     <motion.header
@@ -41,24 +39,21 @@ export default function Navbar() {
       transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <div className="h-1 w-full bg-gradient-to-r from-[#166534] via-[#facc15] to-[#166534]" />
-      <div className="max-w-[1200px] mx-auto px-4 md:px-6 flex items-center justify-between h-14 md:h-[56px]">
-        <a href="#hero" className="flex items-center gap-3 shrink-0 py-2 min-w-0">
+      <div className="max-w-[1200px] mx-auto px-3 sm:px-5 flex items-center justify-between min-h-[88px] md:min-h-[104px] py-2 md:py-3">
+        <a href="#hero" className="flex items-center shrink-0 py-1" aria-label={lang === "es" ? "Inicio" : "Home"}>
           <img
             src="/logo.png"
-            alt="FutbolParaTodos"
-            className="h-8 w-auto max-h-8 object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
+            alt=""
+            className="h-[4.5rem] w-auto sm:h-[5rem] md:h-[5.75rem] max-h-[92px] object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
           />
-          <span className="hidden sm:block text-[10px] font-bold uppercase tracking-[0.2em] text-white/45 truncate max-w-[140px] md:max-w-none">
-            {tagline}
-          </span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-7 lg:gap-9">
+        <nav className="hidden md:flex items-center gap-8 lg:gap-10">
           {links.map((link, i) => (
             <a
               key={i}
               href={hrefs[i]}
-              className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/70 hover:text-[#4ade80] transition-colors"
+              className="text-[13px] lg:text-[14px] font-bold uppercase tracking-[0.14em] text-white/75 hover:text-[#4ade80] transition-colors"
             >
               {link}
             </a>
@@ -69,7 +64,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setLang(lang === "es" ? "en" : "es")}
-            className="text-[10px] font-bold uppercase tracking-[0.15em] px-3 py-2 rounded-sm text-white/80 border border-white/20 hover:bg-white/10 hover:border-white/30 transition-colors"
+            className="text-[11px] font-bold uppercase tracking-[0.12em] px-3 py-2.5 rounded-sm text-white/85 border border-white/25 hover:bg-white/10 transition-colors"
           >
             {lang === "es" ? "EN" : "ES"}
           </button>
@@ -77,17 +72,17 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsCartOpen(true)}
-            className="relative flex items-center justify-center w-10 h-10 rounded-sm bg-[#166534] hover:bg-[#14532d] text-white transition-colors"
+            className="relative flex items-center justify-center w-11 h-11 rounded-sm bg-[#166534] hover:bg-[#14532d] text-white transition-colors"
             aria-label="Carrito"
           >
-            <ShoppingBag size={18} strokeWidth={1.75} />
+            <ShoppingBag size={20} strokeWidth={1.75} />
             <AnimatePresence>
               {cartCount > 0 && (
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0 }}
-                  className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-0.5 bg-[#facc15] text-[#0f172a] text-[9px] font-black rounded-sm flex items-center justify-center"
+                  className="absolute -top-1 -right-1 min-w-[20px] h-5 px-0.5 bg-[#facc15] text-[#0f172a] text-[10px] font-black rounded-sm flex items-center justify-center"
                 >
                   {cartCount}
                 </motion.span>
@@ -97,7 +92,7 @@ export default function Navbar() {
 
           <button
             type="button"
-            className="md:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 text-white"
+            className="md:hidden flex flex-col justify-center items-center gap-[5px] w-11 h-11 text-white"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
           >
@@ -135,7 +130,7 @@ export default function Navbar() {
                   key={i}
                   href={hrefs[i]}
                   onClick={() => setMenuOpen(false)}
-                  className="text-[13px] font-bold uppercase tracking-[0.12em] text-white/90 py-4 border-b border-white/10 last:border-0"
+                  className="text-[15px] font-bold uppercase tracking-[0.1em] text-white/90 py-4 border-b border-white/10 last:border-0"
                 >
                   {link}
                 </a>

@@ -15,17 +15,17 @@ const CATEGORIES = ["Todos", "LaLiga", "Premier League", "Ligue 1", "Serie A", "
 const CONTENT = {
   es: {
     headingAccent: "CAMISETAS",
-    headingRest: "y equipación en catálogo.",
+    headingRest: "en catálogo.",
     subtitle:
-      "Fichas grandes, foto clara y detalle al toque: tallas, precio y pedido por WhatsApp.",
+      "Fichas grandes y foto clara: toca una tarjeta para ver tallas, precio y pedir.",
     from: "Desde",
     filter: "Filtrar liga",
     watermark: "FPT",
   },
   en: {
     headingAccent: "JERSEYS",
-    headingRest: "and kit in the catalog.",
-    subtitle: "Big cards, clear photos, tap for sizes, price, and WhatsApp order.",
+    headingRest: "in the catalog.",
+    subtitle: "Big cards and clear photos — tap a card for sizes, price, and ordering.",
     from: "From",
     filter: "League",
     watermark: "FPT",
@@ -86,20 +86,20 @@ function ShowcaseCard({
         <div className="flex flex-1 flex-col px-7 pt-7 pb-3 md:px-9 md:pt-8">
           <div className="flex items-start justify-between gap-3 mb-3">
             <span
-              className={`inline-flex text-[10px] font-black uppercase tracking-[0.12em] px-2.5 py-1 rounded-sm ${
+              className={`inline-flex text-[11px] sm:text-xs font-black uppercase tracking-[0.1em] px-3 py-1.5 rounded-sm ${
                 dark ? "bg-white/10 text-[#4ade80] ring-1 ring-white/15" : "bg-[#166534]/10 text-[#14532d]"
               }`}
             >
               {product.category}
             </span>
             {product.badge && (
-              <span className="text-[10px] font-black uppercase tracking-[0.1em] text-[#b45309]">
+              <span className="text-[11px] sm:text-xs font-black uppercase tracking-[0.08em] text-[#b45309]">
                 {product.badge}
               </span>
             )}
           </div>
           <h3
-            className={`text-[1.5rem] md:text-[1.75rem] font-black uppercase leading-[1.05] tracking-tight ${
+            className={`text-[1.65rem] sm:text-[1.85rem] md:text-[2rem] font-black uppercase leading-[1.05] tracking-tight ${
               dark ? "text-white" : "text-[#0f172a]"
             }`}
           >
@@ -107,7 +107,7 @@ function ShowcaseCard({
           </h3>
           {tagline && (
             <p
-              className={`mt-2 text-[14px] md:text-[15px] leading-snug max-w-[95%] font-medium ${
+              className={`mt-3 text-[15px] md:text-[17px] leading-snug max-w-[95%] font-medium ${
                 dark ? "text-white/55" : "text-[#5c6b63]"
               }`}
             >
@@ -115,11 +115,11 @@ function ShowcaseCard({
             </p>
           )}
           <div className="mt-5 flex items-baseline gap-2">
-            <span className={`text-[11px] font-bold uppercase tracking-wide ${dark ? "text-white/40" : "text-[#5c6b63]"}`}>
+            <span className={`text-xs font-bold uppercase tracking-wide ${dark ? "text-white/40" : "text-[#5c6b63]"}`}>
               {t.from}
             </span>
             <span
-              className={`text-2xl font-black tabular-nums tracking-tight ${dark ? "text-[#facc15]" : "text-[#166534]"}`}
+              className={`text-[1.65rem] md:text-[1.85rem] font-black tabular-nums tracking-tight ${dark ? "text-[#facc15]" : "text-[#166534]"}`}
             >
               €{product.price.toFixed(2)}
             </span>
@@ -166,7 +166,7 @@ export default function Products() {
   return (
     <section id="products" className="relative py-16 md:py-28 overflow-hidden">
       <div
-        className="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 text-[clamp(5rem,18vw,14rem)] font-black leading-none text-[#166534]/[0.06] select-none whitespace-nowrap"
+        className="pointer-events-none absolute left-1/2 top-4 md:top-6 -translate-x-1/2 text-[clamp(12rem,42vw,38rem)] font-black leading-none text-[#166534]/[0.09] select-none whitespace-nowrap"
         aria-hidden
       >
         {t.watermark}
@@ -190,13 +190,13 @@ export default function Products() {
         >
           <div className="w-1.5 shrink-0 rounded-full bg-gradient-to-b from-[#166534] via-[#4ade80] to-[#facc15] hidden md:block md:min-h-[7rem]" />
           <div className="max-w-3xl">
-            <h2 className="text-[2rem] md:text-[2.75rem] font-black uppercase leading-[1.05] tracking-tight text-[#0f172a]">
+            <h2 className="text-[2.25rem] sm:text-[2.6rem] md:text-[3rem] font-black uppercase leading-[1.05] tracking-tight text-[#0f172a]">
               <span className="text-[#166534]">{t.headingAccent}</span>{" "}
-              <span className="text-[#5c6b63] font-extrabold normal-case text-[1.35rem] md:text-[1.85rem] tracking-normal">
+              <span className="text-[#5c6b63] font-extrabold normal-case text-[1.45rem] sm:text-[1.65rem] md:text-[2rem] tracking-normal">
                 {t.headingRest}
               </span>
             </h2>
-            <p className="mt-4 text-[15px] md:text-[17px] text-[#5c6b63] leading-relaxed font-medium border-l-4 border-[#facc15]/80 pl-4">
+            <p className="mt-5 text-[16px] md:text-lg text-[#5c6b63] leading-relaxed font-medium border-l-4 border-[#facc15]/80 pl-5">
               {t.subtitle}
             </p>
           </div>
@@ -208,7 +208,7 @@ export default function Products() {
           viewport={{ once: true }}
           className="flex flex-wrap items-center gap-2 mb-10"
         >
-          <span className="text-[11px] font-black text-[#166534] mr-1 uppercase tracking-[0.14em]">
+          <span className="text-xs sm:text-[13px] font-black text-[#166534] mr-2 uppercase tracking-[0.12em]">
             {t.filter}
           </span>
           {CATEGORIES.map((cat) => {
@@ -218,7 +218,7 @@ export default function Products() {
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`rounded-sm px-3.5 py-2 text-[11px] font-bold uppercase tracking-wide transition-all ${
+                className={`rounded-sm px-4 py-2.5 text-xs sm:text-[13px] font-bold uppercase tracking-wide transition-all ${
                   active
                     ? "bg-[#0f172a] text-white shadow-lg shadow-[#0f172a]/25 ring-2 ring-[#facc15]/50"
                     : "bg-white text-[#0f172a]/85 ring-1 ring-[#166534]/20 hover:bg-[#166534]/10"
