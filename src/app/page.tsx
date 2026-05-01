@@ -1,28 +1,25 @@
 import { LanguageProvider } from "@/context/LanguageContext";
+import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Services from "@/components/Services";
+import Products from "@/components/Products";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import ChatWidget from "@/components/ChatWidget";
+import CartDrawer from "@/components/CartDrawer";
 
 export default function Home() {
   return (
     <LanguageProvider>
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Services />
-        <Contact />
-      </main>
-      <Footer />
-      <ChatWidget />
+      <CartProvider>
+        <Navbar />
+        <main>
+          <Hero />
+          <Products />
+          <Contact />
+        </main>
+        <Footer />
+        <CartDrawer />
+      </CartProvider>
     </LanguageProvider>
   );
 }

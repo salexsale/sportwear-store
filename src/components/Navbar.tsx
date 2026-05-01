@@ -2,16 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useCart } from "@/context/CartContext";
 
 const NAV = {
   es: {
-    links: ["Inicio", "Sobre Mí", "Habilidades", "Proyectos", "Servicios", "Contacto"],
-    hrefs: ["#hero", "#about", "#skills", "#projects", "#services", "#contact"],
+    links: ["Inicio", "Colección", "Contacto"],
+    hrefs: ["#hero", "#products", "#contact"],
   },
   en: {
-    links: ["Home", "About", "Skills", "Projects", "Services", "Contact"],
-    hrefs: ["#hero", "#about", "#skills", "#projects", "#services", "#contact"],
+    links: ["Home", "Collection", "Contact"],
+    hrefs: ["#hero", "#products", "#contact"],
   },
 };
 
@@ -19,6 +21,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { lang, setLang } = useLanguage();
+  const { cartCount, setIsCartOpen } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -40,15 +43,13 @@ export default function Navbar() {
       transition={{ duration: 0.7, ease: [0.6, 0, 0.05, 1] }}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
         <a
           href="#hero"
-          className="text-base font-semibold tracking-tight bg-gradient-to-r from-[#6BBF9E] to-[#5BA8D4] bg-clip-text text-transparent"
+          className="text-xl font-black tracking-tight bg-gradient-to-r from-[#6BBF9E] to-[#5BA8D4] bg-clip-text text-transparent"
         >
-          avalito
+          SPORTWEAR
         </a>
 
-        {/* Desktop links */}
         <nav className="hidden md:flex items-center gap-7">
           {links.map((link, i) => (
             <a
@@ -61,7 +62,6 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right side */}
         <div className="flex items-center gap-3">
           <button
             onClick={() => setLang(lang === "es" ? "en" : "es")}
@@ -70,7 +70,25 @@ export default function Navbar() {
             {lang === "es" ? "EN" : "ES"}
           </button>
 
-          {/* Hamburger */}
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="relative p-2.5 rounded-full bg-black text-white hover:bg-gray-800 transition-colors"
+          >
+            <ShoppingBag size={18} />
+            <AnimatePresence>
+              {cartCount > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-[#6BBF9E] text-white text-xs font-bold rounded-full flex items-center justify-center"
+                >
+                  {cartCount}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+
           <button
             className="md:hidden flex flex-col justify-center items-center gap-[5px] w-8 h-8"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -95,7 +113,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
