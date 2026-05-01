@@ -72,11 +72,16 @@ body {
 .fpt-shipping-marquee-track {
   display: flex;
   width: max-content;
-  animation: fpt-shipping-marquee 38s linear infinite;
+  animation: fpt-shipping-marquee 45s linear infinite;
   will-change: transform;
 }
+/*
+ * No desactivar la animación con prefers-reduced-motion: muchos usuarios tienen
+ * “animaciones desactivadas” en el SO pero esperan ver este tipo de aviso.
+ * Solo se ralentiza; sigue siendo movimiento perceptible.
+ */
 @media (prefers-reduced-motion: reduce) {
   .fpt-shipping-marquee-track {
-    animation: none;
+    animation-duration: 95s;
   }
 }

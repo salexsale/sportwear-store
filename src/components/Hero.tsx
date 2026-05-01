@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import ShippingMarquee from "@/components/ShippingMarquee";
 
 type Slide =
   | { kind: "image"; src: string; alt: string; line1: { es: string; en: string }; line2: { es: string; en: string } }
@@ -85,11 +86,11 @@ export default function Hero() {
     <>
       <section
         id="hero"
-        className="relative w-full overflow-hidden bg-[#0f172a] pt-[102px] md:pt-[110px]"
+        className="relative w-full overflow-hidden bg-[#0f172a] pt-[72px] md:pt-[78px]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div className="flex flex-col lg:flex-row lg:min-h-[calc(100svh-110px)]">
+        <div className="flex flex-col lg:flex-row lg:min-h-[calc(100svh-78px)]">
           {/* Panel editorial — muy visible en desktop; en móvil va debajo de la foto */}
           <div className="order-2 lg:order-1 flex flex-col justify-end lg:justify-center lg:w-[min(44vw,520px)] xl:w-[540px] shrink-0 px-5 sm:px-8 lg:pl-[max(1.25rem,calc(50vw-600px+1rem))] lg:pr-10 py-10 lg:py-16 bg-[#0f172a] border-t-4 lg:border-t-0 lg:border-r-0 lg:border-l-4 border-[#facc15] relative">
             <div
@@ -148,7 +149,7 @@ export default function Hero() {
           </div>
 
           {/* Imagen / video — ocupa el resto; en móvil primero */}
-          <div className="order-1 lg:order-2 relative flex-1 min-h-[58svh] sm:min-h-[62svh] lg:min-h-[calc(100svh-110px)] px-3 pt-3 pb-0 lg:p-0">
+          <div className="order-1 lg:order-2 relative flex-1 min-h-[58svh] sm:min-h-[62svh] lg:min-h-[calc(100svh-78px)] px-3 pt-3 pb-0 lg:p-0">
             <div className="absolute inset-3 lg:inset-0 max-lg:rounded-[20px] overflow-hidden ring-1 ring-white/15 lg:ring-0 shadow-2xl lg:shadow-none">
               <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden max-lg:rounded-[20px]">
                 {sparkles.map((p, i) => (
@@ -232,6 +233,8 @@ export default function Hero() {
           </div>
         </div>
       </section>
+
+      <ShippingMarquee />
     </>
   );
 }

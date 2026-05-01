@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/CartContext";
-import { SHIPPING_MARQUEE_LINES } from "@/lib/shipping-marquee";
 
 const NAV = {
   es: {
@@ -113,23 +112,6 @@ export default function Navbar() {
               }`}
             />
           </button>
-        </div>
-      </div>
-
-      <div
-        className="overflow-hidden bg-[#166534] border-t border-[#facc15]/30"
-        aria-label={lang === "es" ? "Información de envíos" : "Shipping information"}
-      >
-        <div className="fpt-shipping-marquee-track">
-          {[...SHIPPING_MARQUEE_LINES[lang], ...SHIPPING_MARQUEE_LINES[lang]].map((line, i) => (
-            <span
-              key={`${i}-${line}`}
-              className="inline-flex items-center gap-2 md:gap-3 shrink-0 px-6 md:px-12 py-1.5 md:py-2 text-[11px] sm:text-[12px] md:text-[13px] font-black uppercase tracking-[0.1em] text-white whitespace-nowrap"
-            >
-              <span className="h-1.5 w-1.5 shrink-0 rounded-sm bg-[#facc15]" aria-hidden />
-              {line}
-            </span>
-          ))}
         </div>
       </div>
 
