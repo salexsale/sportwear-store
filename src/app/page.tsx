@@ -6,6 +6,7 @@ import Products from "@/components/Products";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import WhatsappFab from "@/components/WhatsappFab";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         </main>
         <Footer />
         <CartDrawer />
+        <WhatsappFab />
       </CartProvider>
     </LanguageProvider>
   );

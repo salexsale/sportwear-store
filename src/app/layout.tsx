@@ -8,12 +8,12 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Alvaro Ferreira · avalito",
+  title: "FutbolParaTodos · Catálogo",
   description:
-    "Portfolio de Alvaro Ferreira — Futuro desarrollador de software con visión de futuro y ganas de progresar.",
+    "Catálogo de camisetas y equipación. Encuentra tu equipo y pide por WhatsApp.",
   openGraph: {
-    title: "Alvaro Ferreira · avalito",
-    description: "Portfolio de Alvaro Ferreira — Futuro desarrollador de software.",
+    title: "FutbolParaTodos · Catálogo",
+    description: "Camisetas y equipación deportiva. Pedidos por WhatsApp.",
     type: "website",
   },
 };

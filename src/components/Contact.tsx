@@ -1,56 +1,30 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-
-function GitHubIcon({ size = 17 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-    </svg>
-  );
-}
-
-function LinkedInIcon({ size = 17 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-    </svg>
-  );
-}
-
-const LINKS = [
-  {
-    label: "GitHub",
-    value: "@victoralvaroferreirajuarez-star",
-    href: "https://github.com/victoralvaroferreirajuarez-star",
-    Icon: GitHubIcon,
-  },
-  {
-    label: "LinkedIn",
-    value: "Alvaro Ferreira",
-    href: "https://www.linkedin.com/in/victor-alvaro-ferreira-juarez-321970322/",
-    Icon: LinkedInIcon,
-  },
-];
+import { openWhatsApp } from "@/lib/whatsapp";
 
 const CONTENT = {
   es: {
-    label: "Contacto",
-    title: "Hablemos.",
+    label: "Pedidos",
+    title: "Hablemos por WhatsApp.",
     subtitle:
-      "Estoy abierto a oportunidades, colaboraciones, o simplemente a conectar con personas del sector.",
-    cta: "¿Tienes un proyecto en mente? Me encantaría escucharte.",
-    ctaBtn: "Conectar en LinkedIn",
+      "Catálogo y asesoramiento personalizado. Escríbenos y cerramos talla, envío y forma de pago.",
+    cta: "Abrir chat en WhatsApp",
+    hint: "Pulsa y se abrirá WhatsApp con un mensaje de ejemplo; cámbialo o amplía lo que necesites.",
+    msg:
+      "Hola, vengo desde FutbolParaTodos. Me interesa información sobre camisetas / pedidos.",
   },
   en: {
-    label: "Contact",
-    title: "Let's talk.",
+    label: "Orders",
+    title: "Message us on WhatsApp.",
     subtitle:
-      "I'm open to opportunities, collaborations, or simply connecting with people in the field.",
-    cta: "Have a project in mind? I'd love to hear about it.",
-    ctaBtn: "Connect on LinkedIn",
+      "Catalog and personal advice. Write to us and we’ll confirm size, shipping, and payment.",
+    cta: "Open WhatsApp chat",
+    hint: "Opens WhatsApp with a sample message you can edit before sending.",
+    msg:
+      "Hi, I'm contacting you from FutbolParaTodos. I'd like information about jerseys / ordering.",
   },
 };
 
@@ -59,89 +33,48 @@ export default function Contact() {
   const t = CONTENT[lang];
 
   return (
-    <section id="contact" className="py-32 bg-[#111111] overflow-hidden relative">
+    <section id="contact" className="py-24 md:py-32 bg-[#0a0a0a] text-white overflow-hidden relative">
       <div
-        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none opacity-[0.08]"
-        style={{ background: "radial-gradient(circle, #A8D5C2, transparent 65%)" }}
-      />
-      <div
-        className="absolute bottom-0 left-[-5%] w-[400px] h-[400px] rounded-full pointer-events-none opacity-[0.06]"
-        style={{ background: "radial-gradient(circle, #A8C8E8, transparent 65%)" }}
+        className="pointer-events-none absolute top-0 right-0 w-[min(520px,90vw)] h-[520px] opacity-[0.07]"
+        style={{
+          background: "radial-gradient(circle at 70% 30%, #C9A227, transparent 62%)",
+        }}
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8">
         <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl"
         >
-          <p className="text-xs font-semibold text-[#6BBF9E] tracking-[0.18em] uppercase mb-3">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#C9A227] mb-4">
             {t.label}
           </p>
-          <h2 className="text-[clamp(3rem,9vw,5.5rem)] font-bold text-white leading-[1.02] tracking-tight mb-5">
+          <h2 className="text-[clamp(2.25rem,6vw,3.75rem)] font-semibold leading-[1.08] tracking-tight">
             {t.title}
           </h2>
-          <p className="text-[#6E6E73] max-w-lg font-light text-lg leading-relaxed">
-            {t.subtitle}
-          </p>
+          <p className="mt-5 text-base md:text-lg text-white/55 leading-relaxed">{t.subtitle}</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* Social links */}
-          <motion.div
-            className="space-y-3"
-            initial={{ opacity: 0, x: -24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.15 }}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, delay: 0.1 }}
+          className="mt-12 md:mt-14 flex flex-col sm:flex-row sm:items-center gap-4"
+        >
+          <button
+            type="button"
+            onClick={() => openWhatsApp(t.msg)}
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors rounded-sm"
           >
-            {LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-5 rounded-2xl bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.08] hover:border-white/[0.15] transition-all duration-300 group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#A8D5C2] to-[#A8C8E8] flex items-center justify-center flex-shrink-0 text-[#1D1D1F]">
-                  <link.Icon size={17} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] text-[#6E6E73] mb-0.5 font-medium tracking-wide uppercase">
-                    {link.label}
-                  </p>
-                  <p className="text-sm text-white/80 font-medium truncate">{link.value}</p>
-                </div>
-                <ArrowUpRight
-                  size={15}
-                  className="text-[#6E6E73] group-hover:text-white/70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200 flex-shrink-0"
-                />
-              </a>
-            ))}
-          </motion.div>
-
-          {/* CTA card */}
-          <motion.div
-            className="p-8 rounded-3xl border border-white/[0.08] bg-gradient-to-br from-[#A8D5C2]/[0.08] to-[#A8C8E8]/[0.08]"
-            initial={{ opacity: 0, x: 24 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-          >
-            <p className="text-white/60 text-lg font-light leading-[1.7] mb-7">{t.cta}</p>
-            <a
-              href="https://www.linkedin.com/in/victor-alvaro-ferreira-juarez-321970322/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#1D1D1F] text-sm font-semibold rounded-full hover:bg-white/90 active:scale-95 transition-all duration-300 hover:shadow-lg hover:shadow-white/10"
-            >
-              <LinkedInIcon size={15} />
-              {t.ctaBtn}
-            </a>
-          </motion.div>
-        </div>
+            <MessageCircle className="w-4 h-4" strokeWidth={2} />
+            {t.cta}
+          </button>
+          <p className="text-sm text-white/40 max-w-md">{t.hint}</p>
+        </motion.div>
       </div>
     </section>
   );
