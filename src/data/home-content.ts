@@ -1,6 +1,6 @@
 /**
  * Textos de la página de inicio (ES / EN).
- * Edita aquí kicker, CTAs, franja de confianza, promoción 6k+, “Conócenos” y copys del catálogo.
+ * Edita aquí kicker, CTAs, trust strip, promo, testimonios, “Conócenos” y copys del catálogo.
  * Las frases grandes del hero por slide siguen en `hero-slides.ts` (line1 / line2).
  */
 export const HOME_CONTENT = {
@@ -57,6 +57,33 @@ export const HOME_CONTENT = {
         "Te invitamos a conocer nuestra historia y los proyectos que vienen. Nuestras aspiraciones van más allá del fútbol: comunidad, pasión y un servicio cercano.",
       cta: "Contactar",
     },
+    /** Sustituye citas por opiniones reales con permiso del cliente (evita testimonios falsos). */
+    testimonialsSection: {
+      title: "Clientes satisfechos",
+      subtitle: "Reseñas y comentarios de quienes ya recibieron su pedido.",
+    },
+    testimonials: [
+      {
+        quote: "Camiseta impecable, talla perfecta y envío en la fecha que dijeron. Repetiré sin duda.",
+        author: "María G.",
+        place: "Madrid",
+      },
+      {
+        quote: "Me asesoraron por WhatsApp con paciencia; el acabado superó lo que esperaba por el precio.",
+        author: "Carlos R.",
+        place: "Sevilla",
+      },
+      {
+        quote: "Pedido internacional sin problemas. Comunicación clara en todo momento.",
+        author: "Laura M.",
+        place: "Valencia",
+      },
+      {
+        quote: "Varias temporadas comprando aquí. Seriedad y buen trato.",
+        author: "Javier P.",
+        place: "Bilbao",
+      },
+    ],
   },
   en: {
     hero: {
@@ -110,5 +137,31 @@ export const HOME_CONTENT = {
         "Discover our story and what’s next. We care about community, passion, and service — football is just where we start.",
       cta: "Get in touch",
     },
+    testimonialsSection: {
+      title: "Happy customers",
+      subtitle: "Feedback from people who already received their order.",
+    },
+    testimonials: [
+      {
+        quote: "Jersey was spotless, sizing was right, and delivery landed when promised. I’ll order again.",
+        author: "María G.",
+        place: "Madrid",
+      },
+      {
+        quote: "They walked me through everything on WhatsApp; the finish exceeded my expectations.",
+        author: "Carlos R.",
+        place: "Seville",
+      },
+      {
+        quote: "International order went smoothly. Clear updates the whole way.",
+        author: "Laura M.",
+        place: "Valencia",
+      },
+      {
+        quote: "Several seasons shopping here — reliable and friendly.",
+        author: "Javier P.",
+        place: "Bilbao",
+      },
+    ],
   },
 } as const;

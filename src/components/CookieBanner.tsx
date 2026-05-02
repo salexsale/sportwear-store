@@ -11,6 +11,8 @@ const COPY = {
       "En cumplimiento de la normativa sobre cookies y protección de datos, informamos de que este sitio puede utilizar tecnologías propias y de terceros para el funcionamiento del catálogo, preferencias de idioma y medición básica de uso. Puede aceptar todas las finalidades o rechazar las opcionales; las cookies estrictamente necesarias podrían seguir activas para permitir la navegación y la seguridad del servicio.",
     disclaimer:
       "Aviso sobre el catálogo: comercializamos prendas de inspiración deportiva tipo réplica con muy buena confección y materiales; no son prendas oficiales licenciadas por clubes o federaciones si no se indica expresamente en la ficha del producto.",
+    policy:
+      "Cambios y devoluciones (resumen): los cambios de talla se valoran cuando hay stock y la prenda sigue en las condiciones acordadas por WhatsApp. Una devolución o sustitución por motivos de calidad solo procede ante un defecto grave comprobable o un error claro nuestro —no por arrepentimiento ni por talla elegida mal por el cliente— y siempre según lo confirmado por escrito en cada pedido antes de pagar. Si tu política real es distinta, edita este texto en CookieBanner.tsx.",
     accept: "Aceptar",
     reject: "Rechazar",
   },
@@ -19,6 +21,8 @@ const COPY = {
       "In line with applicable cookie and privacy rules, this site may use first- and third-party technologies for the catalog, language preferences, and basic usage metrics. You may accept optional purposes or decline them; strictly necessary cookies may remain active for navigation and security.",
     disclaimer:
       "Catalog notice: we sell sports-inspired replica-style garments with solid construction and materials; they are not officially licensed club or federation products unless clearly stated on the product page.",
+    policy:
+      "Exchanges & returns (summary): size swaps are considered when stock allows and the item remains in the condition agreed on WhatsApp. A return or replacement for quality reasons only applies to a proven serious defect or a clear mistake on our side —not change of mind or wrong size chosen by the buyer— and only as confirmed in writing for each order before payment. Edit this text in CookieBanner.tsx if your real policy differs.",
     accept: "Accept",
     reject: "Decline",
   },
@@ -61,7 +65,8 @@ export default function CookieBanner() {
             {lang === "es" ? "Cookies y privacidad" : "Cookies & privacy"}
           </p>
           <p className="text-[11px] leading-relaxed text-white/75 md:text-xs">{t.legal}</p>
-          <p className="text-[9px] leading-snug text-white/45 md:text-[10px]">{t.disclaimer}</p>
+          <p className="text-[9px] leading-snug text-white/50 md:text-[10px]">{t.disclaimer}</p>
+          <p className="text-[8px] leading-snug text-white/40 md:text-[9px]">{t.policy}</p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-2 md:flex-col md:items-stretch">
           <button

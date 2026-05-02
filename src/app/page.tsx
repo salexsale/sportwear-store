@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import TrustStrip from "@/components/TrustStrip";
 import PromoStatBand from "@/components/PromoStatBand";
 import Products from "@/components/Products";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import AboutTeaser from "@/components/AboutTeaser";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -22,6 +23,7 @@ export default function Home() {
           <TrustStrip />
           <PromoStatBand />
           <Products />
+          <TestimonialsSection />
           <AboutTeaser />
           <Contact />
         </main>
