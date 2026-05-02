@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Instagram, Mail, MessageCircle, Phone } from "lucide-react";
+import { Mail, MessageCircle, Phone } from "lucide-react";
+import InstagramIcon from "@/components/InstagramIcon";
 import { useLanguage } from "@/context/LanguageContext";
 import { openWhatsApp } from "@/lib/whatsapp";
 import { SITE_EMAIL, SITE_INSTAGRAM_URL, SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from "@/lib/site-config";
@@ -68,7 +69,7 @@ export default function Contact() {
                     className="inline-flex items-center gap-3 font-bold text-[#0f172a] hover:text-[#166534] transition-colors"
                   >
                     <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#166534]/15 text-[#166534]">
-                      <Instagram className="w-5 h-5" strokeWidth={2} />
+                      <InstagramIcon className="h-5 w-5" />
                     </span>
                     Instagram · @fpt.store
                   </a>

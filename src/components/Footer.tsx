@@ -1,7 +1,7 @@
 "use client";
 
-import { Instagram } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import InstagramIcon from "@/components/InstagramIcon";
 import { SITE_EMAIL, SITE_INSTAGRAM_URL, SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from "@/lib/site-config";
 
 const CONTENT = {
@@ -32,7 +32,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-semibold text-[#4ade80] hover:text-[#86efac] transition-colors"
           >
-            <Instagram className="h-4 w-4 shrink-0" strokeWidth={2} />
+            <InstagramIcon className="h-4 w-4 shrink-0" />
             @fpt.store
           </a>
           <a
