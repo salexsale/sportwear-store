@@ -2,7 +2,10 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import TrustStrip from "@/components/TrustStrip";
+import PromoStatBand from "@/components/PromoStatBand";
 import Products from "@/components/Products";
+import AboutTeaser from "@/components/AboutTeaser";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
@@ -16,7 +19,10 @@ export default function Home() {
         <Navbar />
         <main>
           <Hero />
+          <TrustStrip />
+          <PromoStatBand />
           <Products />
+          <AboutTeaser />
           <Contact />
         </main>
         <Footer />
