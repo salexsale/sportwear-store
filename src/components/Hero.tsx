@@ -1,6 +1,6 @@
 "use client";
 
-/** Carrusel: imágenes y titulares por slide en `src/data/hero-slides.ts`. Textos kicker/CTA/tagline en `src/data/home-content.ts`. */
+/** Carrusel: `src/data/hero-slides.ts` · Textos kicker/CTA/tagline: `src/data/home-content.ts` */
 import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -10,12 +10,6 @@ import { HERO_SLIDES } from "@/data/hero-slides";
 import { HOME_CONTENT } from "@/data/home-content";
 
 const AUTO_MS = 7500;
-
-const sparkles = [
-  { c: "rgba(74,222,128,0.5)", x: "12%", y: "18%", s: 16, d: 5 },
-  { c: "rgba(250,204,21,0.45)", x: "78%", y: "22%", s: 12, d: 4.5 },
-  { c: "rgba(255,255,255,0.25)", x: "88%", y: "12%", s: 10, d: 4 },
-];
 
 export default function Hero() {
   const { lang } = useLanguage();
@@ -43,73 +37,108 @@ export default function Hero() {
     <>
       <section
         id="hero"
-        className="relative w-full overflow-hidden bg-[#0f172a] pt-[72px] md:pt-[78px]"
+        className="relative min-h-[100svh] w-full overflow-hidden bg-[#070d18] pt-[72px] md:pt-[78px]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div className="pointer-events-none absolute inset-0 opacity-[0.04]" aria-hidden>
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 20% 30%, rgba(250,204,21,0.15), transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(22,101,52,0.2), transparent 45%)`,
-            }}
-          />
+        {/* Capa imagen / vídeo — de borde a borde bajo el header fijo */}
+        <div className="absolute bottom-0 left-0 right-0 top-[72px] md:top-[78px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={slide.src + index}
+              className="absolute inset-0"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
+            >
+              {slide.kind === "image" ? (
+                <img
+                  src={slide.src}
+                  alt={slide.alt}
+                  className="h-full w-full object-cover object-center"
+                />
+              ) : (
+                <video
+                  className="h-full w-full object-cover object-center"
+                  src={slide.src}
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                />
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        <div className="flex flex-col lg:flex-row lg:min-h-[calc(100svh-78px)]">
-          <div className="order-2 lg:order-1 flex flex-col justify-end lg:justify-center lg:w-[min(44vw,520px)] xl:w-[540px] shrink-0 px-5 sm:px-8 lg:pl-[max(1.25rem,calc(50vw-600px+1rem))] lg:pr-10 py-10 lg:py-16 bg-[#0f172a] border-t-4 lg:border-t-0 lg:border-r-0 lg:border-l-4 border-[#facc15] relative">
-            <div
-              className="pointer-events-none absolute inset-0 opacity-[0.07]"
-              style={{
-                backgroundImage: `repeating-linear-gradient(
-                  -18deg,
-                  transparent,
-                  transparent 12px,
-                  rgba(255,255,255,0.12) 12px,
-                  rgba(255,255,255,0.12) 13px
-                )`,
-              }}
-              aria-hidden
-            />
-            <div className="relative z-10">
-              <p className="text-[11px] sm:text-xs font-black uppercase tracking-[0.18em] text-[#4ade80] mb-5">
+        {/* Lectura: gradientes + viñeta (sin bloque 50/50) */}
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 top-[72px] z-[1] md:top-[78px]" aria-hidden>
+          {/* Oscurece izquierda donde va el bloque de texto */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#050a12]/[0.94] via-[#0a1424]/75 via-[42%] sm:via-[48%] to-transparent" />
+          {/* Refuerzo inferior en móvil */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050a12]/95 via-[#050a12]/35 to-transparent sm:from-[#050a12]/55 sm:via-transparent md:from-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_95%_90%_at_15%_55%,rgba(5,10,18,0.82),transparent_58%)] opacity-95 sm:opacity-100" />
+        </div>
+
+        {/* Contenido sobre la foto */}
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-78px)] w-full max-w-[1240px] flex-col justify-end px-5 pb-12 pt-6 sm:px-8 sm:pb-16 md:justify-center md:pb-20 md:pt-8 lg:px-12">
+          <div className="max-w-[540px] md:max-w-[560px] lg:max-w-[600px]">
+            <div className="rounded-2xl border border-white/12 bg-[#0f172a]/45 px-6 py-7 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.65)] backdrop-blur-md sm:px-8 sm:py-8 md:bg-[#0f172a]/40 md:py-9">
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-[#4ade80] sm:text-[11px]">
                 {heroCopy.kicker}
               </p>
+
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`copy-${index}-${lang}`}
-                  initial={{ opacity: 0, y: 14 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
+                  exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.35 }}
+                  className="mt-5"
                 >
-                  <h1 className="text-[2.5rem] sm:text-[3rem] lg:text-[3.25rem] xl:text-[3.75rem] font-black uppercase leading-[0.95] tracking-[-0.02em] text-white">
-                    <span className="text-[#4ade80]">{slide.line1[lang]}</span>
-                    <span className="mt-1 block text-white/95">{slide.line2[lang]}</span>
+                  {/* Distribución: una línea en desktop con separador; apilado compacto en móvil */}
+                  <h1 className="text-balance font-black uppercase tracking-[-0.03em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.55)]">
+                    <span className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-4 sm:gap-y-1">
+                      <span className="text-[clamp(2rem,7vw,3.75rem)] leading-[0.92] text-[#4ade80]">{slide.line1[lang]}</span>
+                      <span className="hidden font-light text-[2rem] leading-none text-[#facc15]/90 sm:inline sm:text-[2.25rem]" aria-hidden>
+                        /
+                      </span>
+                      <span className="text-[clamp(1.65rem,5.5vw,3.25rem)] leading-[0.95] text-white">
+                        {slide.line2[lang]}
+                      </span>
+                    </span>
                   </h1>
                 </motion.div>
               </AnimatePresence>
-              <span className="mt-4 block h-1 w-20 rounded-full bg-[#facc15]" aria-hidden />
-              <p className="mt-5 max-w-sm text-[13px] leading-relaxed italic text-[#facc15]/90 sm:text-sm">
+
+              <div className="mt-6 flex items-center gap-3">
+                <span className="h-px flex-1 max-w-[4rem] rounded-full bg-[#facc15]" aria-hidden />
+                <span className="h-2 w-2 shrink-0 rotate-45 bg-[#facc15]" aria-hidden />
+              </div>
+
+              <p className="mt-5 max-w-md text-pretty text-[13px] leading-relaxed text-[#fef9c3]/95 sm:text-sm">
                 {heroCopy.tagline}
               </p>
+
               <motion.a
                 href="#products"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="mt-8 inline-flex items-center justify-center rounded-sm bg-[#166534] px-8 py-3.5 text-xs font-black uppercase tracking-[0.12em] text-white shadow-[0_12px_40px_-10px_rgba(22,101,52,0.7)] ring-2 ring-[#facc15]/40 transition-colors hover:bg-[#14532d] sm:text-sm"
+                className="mt-8 inline-flex items-center justify-center rounded-md bg-[#166534] px-8 py-3.5 text-xs font-black uppercase tracking-[0.14em] text-white shadow-[0_12px_40px_-8px_rgba(22,101,52,0.85)] ring-2 ring-[#facc15]/35 transition-colors hover:bg-[#14532d] sm:text-sm"
               >
                 {heroCopy.cta}
               </motion.a>
-              <div className="mt-8 hidden lg:flex gap-2">
+
+              <div className="mt-8 flex flex-wrap items-center gap-2">
                 {HERO_SLIDES.map((_, i) => (
                   <button
                     key={i}
                     type="button"
                     aria-label={`Slide ${i + 1}`}
-                    className={`h-1.5 rounded-sm transition-all duration-300 ${
-                      i === index ? "w-10 bg-[#facc15]" : "w-2 bg-white/25 hover:bg-white/40"
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      i === index ? "w-9 bg-[#facc15]" : "w-2 bg-white/35 hover:bg-white/55"
                     }`}
                     onClick={() => setIndex(i)}
                   />
@@ -117,89 +146,25 @@ export default function Hero() {
               </div>
             </div>
           </div>
-
-          <div className="order-1 lg:order-2 relative flex-1 min-h-[54svh] sm:min-h-[58svh] lg:min-h-[calc(100svh-78px)] px-3 pt-3 pb-0 lg:p-0">
-            <div className="absolute inset-3 lg:inset-0 max-lg:rounded-[18px] overflow-hidden ring-1 ring-white/15 lg:ring-0 shadow-2xl lg:shadow-none">
-              <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden max-lg:rounded-[18px]">
-                {sparkles.map((p, i) => (
-                  <motion.span
-                    key={i}
-                    className="absolute rounded-full blur-[1px]"
-                    style={{
-                      left: p.x,
-                      top: p.y,
-                      width: p.s,
-                      height: p.s,
-                      background: p.c,
-                    }}
-                    animate={{ y: [0, -10, 0], opacity: [0.4, 0.75, 0.4] }}
-                    transition={{ duration: p.d, repeat: Infinity, ease: "easeInOut", delay: i * 0.12 }}
-                  />
-                ))}
-              </div>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={slide.src + index}
-                  className="absolute inset-0 z-0"
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
-                >
-                  {slide.kind === "image" ? (
-                    <img
-                      src={slide.src}
-                      alt={slide.alt}
-                      className="absolute inset-0 h-full w-full object-cover"
-                    />
-                  ) : (
-                    <video
-                      className="absolute inset-0 h-full w-full object-cover"
-                      src={slide.src}
-                      autoPlay
-                      muted
-                      playsInline
-                      loop
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a]/55 via-transparent to-[#0f172a]/25 lg:from-[#0f172a]/38" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a]/75 via-transparent to-transparent lg:from-[#0f172a]/50" />
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            <button
-              type="button"
-              aria-label={lang === "es" ? "Anterior" : "Previous"}
-              className="absolute left-3 md:left-5 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-sm bg-black/45 text-white shadow-lg backdrop-blur-sm ring-1 ring-white/25 transition hover:bg-black/60"
-              onClick={() => go(-1)}
-            >
-              <ChevronLeft className="h-6 w-6" strokeWidth={2} />
-            </button>
-            <button
-              type="button"
-              aria-label={lang === "es" ? "Siguiente" : "Next"}
-              className="absolute right-3 md:right-5 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-sm bg-black/45 text-white shadow-lg backdrop-blur-sm ring-1 ring-white/25 transition hover:bg-black/60"
-              onClick={() => go(1)}
-            >
-              <ChevronRight className="h-6 w-6" strokeWidth={2} />
-            </button>
-
-            <div className="absolute bottom-5 left-1/2 z-20 flex -translate-x-1/2 gap-1.5 lg:hidden">
-              {HERO_SLIDES.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  aria-label={`Slide ${i + 1}`}
-                  className={`h-1 rounded-full transition-all ${
-                    i === index ? "w-6 bg-[#facc15]" : "w-1.5 bg-white/45"
-                  }`}
-                  onClick={() => setIndex(i)}
-                />
-              ))}
-            </div>
-          </div>
         </div>
+
+        {/* Flechas sobre todo el ancho */}
+        <button
+          type="button"
+          aria-label={lang === "es" ? "Anterior" : "Previous"}
+          className="absolute left-3 top-[calc(72px+min(34svh,200px))] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white shadow-lg backdrop-blur-sm ring-1 ring-white/25 transition hover:bg-black/60 sm:left-5 sm:top-1/2 md:left-7"
+          onClick={() => go(-1)}
+        >
+          <ChevronLeft className="h-5 w-5" strokeWidth={2.5} />
+        </button>
+        <button
+          type="button"
+          aria-label={lang === "es" ? "Siguiente" : "Next"}
+          className="absolute right-3 top-[calc(72px+min(34svh,200px))] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white shadow-lg backdrop-blur-sm ring-1 ring-white/25 transition hover:bg-black/60 sm:right-5 sm:top-1/2 md:right-7"
+          onClick={() => go(1)}
+        >
+          <ChevronRight className="h-5 w-5" strokeWidth={2.5} />
+        </button>
       </section>
 
       <ShippingMarquee />
