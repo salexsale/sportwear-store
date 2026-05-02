@@ -7,6 +7,9 @@ export const SITE_PHONE_DISPLAY = "+34 653 12 58 09";
 export const SITE_PHONE_E164 = "+34653125809";
 export const SITE_EMAIL = "fastresalex@gmail.com";
 
+/** Instagram (@fpt.store) */
+export const SITE_INSTAGRAM_URL = "https://www.instagram.com/fpt.store";
+
 export function getWhatsAppPhoneDigits(): string {
   const raw =
     typeof process !== "undefined"

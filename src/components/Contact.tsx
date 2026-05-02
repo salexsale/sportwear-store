@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { Instagram, Mail, MessageCircle, Phone } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { openWhatsApp } from "@/lib/whatsapp";
-import { SITE_EMAIL, SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from "@/lib/site-config";
+import { SITE_EMAIL, SITE_INSTAGRAM_URL, SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from "@/lib/site-config";
 
 const CONTENT = {
   es: {
@@ -61,6 +61,17 @@ export default function Contact() {
                   {t.subtitle}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 text-[16px] md:text-[17px]">
+                  <a
+                    href={SITE_INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 font-bold text-[#0f172a] hover:text-[#166534] transition-colors"
+                  >
+                    <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#166534]/15 text-[#166534]">
+                      <Instagram className="w-5 h-5" strokeWidth={2} />
+                    </span>
+                    Instagram · @fpt.store
+                  </a>
                   <a
                     href={telHref}
                     className="inline-flex items-center gap-3 font-bold text-[#0f172a] hover:text-[#166534] transition-colors"

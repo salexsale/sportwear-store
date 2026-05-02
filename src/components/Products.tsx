@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
+import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import type { Product } from "@/context/CartContext";
 import ProductDetailModal from "@/components/ProductDetailModal";
@@ -12,133 +12,76 @@ const PRODUCTS = CATALOG_PRODUCTS;
 
 const CATEGORIES = ["Todos", "LaLiga", "Premier League", "Ligue 1", "Serie A", "Bundesliga", "Selección"];
 
+type SortKey = "default" | "price-asc" | "price-desc";
+
 const CONTENT = {
   es: {
-    headingAccent: "CAMISETAS",
-    headingRest: "en catálogo.",
-    subtitle:
-      "Fichas grandes y foto clara: toca una tarjeta para ver tallas, precio y pedir.",
+    heading: "Camisetas",
+    subtitle: "Filtra por liga y ordena como en una tienda: claro, rápido, sin perder de vista el producto.",
     from: "Desde",
-    filter: "Filtrar liga",
-    watermark: "FPT",
+    sort: "Ordenar por",
+    sortDefault: "Recomendado",
+    sortPriceLow: "Precio: menor a mayor",
+    sortPriceHigh: "Precio: mayor a menor",
+    hideFilters: "Ocultar filtros",
+    showFilters: "Mostrar filtros",
+    mobileFilters: "Categorías y ligas",
+    league: "Liga / competición",
+    item: "artículo",
+    items: "artículos",
   },
   en: {
-    headingAccent: "JERSEYS",
-    headingRest: "in the catalog.",
-    subtitle: "Big cards and clear photos — tap a card for sizes, price, and ordering.",
+    heading: "Jerseys",
+    subtitle: "Filter by league and sort the grid—clean layout, product first.",
     from: "From",
-    filter: "League",
-    watermark: "FPT",
+    sort: "Sort by",
+    sortDefault: "Featured",
+    sortPriceLow: "Price: low to high",
+    sortPriceHigh: "Price: high to low",
+    hideFilters: "Hide filters",
+    showFilters: "Show filters",
+    mobileFilters: "Leagues & categories",
+    league: "League / competition",
+    item: "item",
+    items: "items",
   },
 };
 
-function JerseyStripeBar({ dark }: { dark: boolean }) {
-  return (
-    <div
-      className={`flex h-1.5 w-full overflow-hidden rounded-sm ${
-        dark ? "opacity-90" : "opacity-100"
-      }`}
-      aria-hidden
-    >
-      <div className="h-full flex-[2] bg-[#166534]" />
-      <div className="h-full flex-1 bg-white/90" />
-      <div className="h-full flex-[2] bg-[#166534]" />
-      <div className="h-full flex-1 bg-[#facc15]" />
-      <div className="h-full flex-[2] bg-[#166534]" />
-    </div>
-  );
-}
-
-function ShowcaseCard({
-  product,
-  onOpen,
-}: {
-  product: Product;
-  onOpen: () => void;
-}) {
+function CatalogCard({ product, onOpen, fromLabel }: { product: Product; onOpen: () => void; fromLabel: string }) {
   const { lang } = useLanguage();
-  const t = CONTENT[lang];
-  const dark = product.cardTheme === "dark";
   const tagline = product.tagline?.[lang];
+  const label = product.badge || product.category;
 
   return (
     <motion.article
-      data-card
-      layout
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-      className={[
-        "snap-center shrink-0 w-[min(88vw,380px)] sm:w-[400px] md:w-[min(42vw,480px)] lg:w-[460px]",
-        "overflow-hidden shadow-[0_20px_50px_-18px_rgba(15,23,42,0.35)] transition-transform duration-300 hover:-translate-y-2",
-        "rounded-tl-md rounded-tr-3xl rounded-br-md rounded-bl-3xl",
-        "ring-2 ring-[#166534]/15",
-        dark ? "bg-[#0f172a]" : "bg-white",
-      ].join(" ")}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+      className="group flex h-full flex-col border border-neutral-200/90 bg-white shadow-sm transition-shadow hover:shadow-md"
     >
-      <JerseyStripeBar dark={dark} />
       <button
         type="button"
         onClick={onOpen}
-        className="flex h-full min-h-[460px] md:min-h-[500px] flex-col text-left w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#facc15] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f0f3ef]"
+        className="flex h-full flex-col text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#166534] focus-visible:ring-offset-2"
       >
-        <div className="flex flex-1 flex-col px-7 pt-7 pb-3 md:px-9 md:pt-8">
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <span
-              className={`inline-flex text-[11px] sm:text-xs font-black uppercase tracking-[0.1em] px-3 py-1.5 rounded-sm ${
-                dark ? "bg-white/10 text-[#4ade80] ring-1 ring-white/15" : "bg-[#166534]/10 text-[#14532d]"
-              }`}
-            >
-              {product.category}
-            </span>
-            {product.badge && (
-              <span className="text-[11px] sm:text-xs font-black uppercase tracking-[0.08em] text-[#b45309]">
-                {product.badge}
-              </span>
-            )}
-          </div>
-          <h3
-            className={`text-[1.65rem] sm:text-[1.85rem] md:text-[2rem] font-black uppercase leading-[1.05] tracking-tight ${
-              dark ? "text-white" : "text-[#0f172a]"
-            }`}
-          >
-            {product.name}
-          </h3>
-          {tagline && (
-            <p
-              className={`mt-3 text-[15px] md:text-[17px] leading-snug max-w-[95%] font-medium ${
-                dark ? "text-white/55" : "text-[#5c6b63]"
-              }`}
-            >
-              {tagline}
-            </p>
-          )}
-          <div className="mt-5 flex items-baseline gap-2">
-            <span className={`text-xs font-bold uppercase tracking-wide ${dark ? "text-white/40" : "text-[#5c6b63]"}`}>
-              {t.from}
-            </span>
-            <span
-              className={`text-[1.65rem] md:text-[1.85rem] font-black tabular-nums tracking-tight ${dark ? "text-[#facc15]" : "text-[#166534]"}`}
-            >
-              €{product.price.toFixed(2)}
-            </span>
-          </div>
-        </div>
-        <div
-          className={`relative mt-auto h-[200px] md:h-[230px] ${
-            dark ? "bg-[#1e293b]" : "bg-gradient-to-b from-[#dce8de] to-[#c5d4c7]"
-          }`}
-        >
-          <div
-            className="pointer-events-none absolute inset-x-0 top-0 h-2 bg-gradient-to-b from-black/10 to-transparent opacity-40"
-            aria-hidden
-          />
+        <div className="relative aspect-[4/5] bg-[#f4f4f5]">
           <img
             src={product.image}
             alt={product.name}
-            className="absolute bottom-0 left-1/2 h-[118%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)] transition duration-500 hover:scale-[1.03]"
+            className="absolute inset-0 h-full w-full object-contain object-center p-4 transition-transform duration-300 group-hover:scale-[1.02]"
           />
+        </div>
+        <div className="flex flex-1 flex-col border-t border-neutral-100 p-4">
+          <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#b45309]">{label}</span>
+          <h3 className="mt-1 line-clamp-2 text-[13px] font-bold leading-snug text-neutral-900 sm:text-sm">{product.name}</h3>
+          {tagline && (
+            <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-neutral-500 sm:text-xs">{tagline}</p>
+          )}
+          <div className="mt-3 flex items-baseline gap-1.5">
+            <span className="text-[10px] font-semibold uppercase tracking-wide text-neutral-400">{fromLabel}</span>
+            <span className="text-base font-bold tabular-nums text-neutral-900">€{product.price.toFixed(2)}</span>
+          </div>
         </div>
       </button>
     </motion.article>
@@ -148,107 +91,161 @@ function ShowcaseCard({
 export default function Products() {
   const { lang } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("Todos");
+  const [sort, setSort] = useState<SortKey>("default");
+  const [sidebarVisible, setSidebarVisible] = useState(true);
   const [detail, setDetail] = useState<Product | null>(null);
-  const scrollerRef = useRef<HTMLDivElement>(null);
   const t = CONTENT[lang];
 
-  const filteredProducts =
-    activeCategory === "Todos" ? PRODUCTS : PRODUCTS.filter((p) => p.category === activeCategory);
+  const list = useMemo(() => {
+    let rows = activeCategory === "Todos" ? [...PRODUCTS] : PRODUCTS.filter((p) => p.category === activeCategory);
+    if (sort === "price-asc") rows.sort((a, b) => a.price - b.price);
+    else if (sort === "price-desc") rows.sort((a, b) => b.price - a.price);
+    return rows;
+  }, [activeCategory, sort]);
 
-  const scrollCarousel = (dir: 1 | -1) => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const card = el.querySelector("[data-card]") as HTMLElement | null;
-    const step = (card?.offsetWidth ?? 400) + 20;
-    el.scrollBy({ left: dir * step, behavior: "smooth" });
-  };
+  const countLabel = list.length === 1 ? t.item : t.items;
 
   return (
-    <section id="products" className="relative py-16 md:py-28 overflow-hidden">
+    <section id="products" className="relative bg-[#fafafa] py-12 md:py-16">
       <div
-        className="pointer-events-none absolute left-1/2 top-4 md:top-6 -translate-x-1/2 text-[clamp(12rem,42vw,38rem)] font-black leading-none text-[#166534]/[0.09] select-none whitespace-nowrap"
+        className="pointer-events-none absolute left-1/2 top-8 -translate-x-1/2 select-none text-[clamp(6rem,28vw,16rem)] font-black leading-none text-[#166534]/[0.06]"
         aria-hidden
       >
-        {t.watermark}
-      </div>
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(22,101,52,0.04) 80px, rgba(22,101,52,0.04) 81px)",
-        }}
-        aria-hidden
-      />
-
-      <div className="relative max-w-[1200px] mx-auto px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 md:mb-12 flex flex-col md:flex-row md:items-end gap-6 md:gap-10"
-        >
-          <div className="w-1.5 shrink-0 rounded-full bg-gradient-to-b from-[#166534] via-[#4ade80] to-[#facc15] hidden md:block md:min-h-[7rem]" />
-          <div className="max-w-3xl">
-            <h2 className="text-[2.25rem] sm:text-[2.6rem] md:text-[3rem] font-black uppercase leading-[1.05] tracking-tight text-[#0f172a]">
-              <span className="text-[#166534]">{t.headingAccent}</span>{" "}
-              <span className="text-[#5c6b63] font-extrabold normal-case text-[1.45rem] sm:text-[1.65rem] md:text-[2rem] tracking-normal">
-                {t.headingRest}
-              </span>
-            </h2>
-            <p className="mt-5 text-[16px] md:text-lg text-[#5c6b63] leading-relaxed font-medium border-l-4 border-[#facc15]/80 pl-5">
-              {t.subtitle}
-            </p>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap items-center gap-2 mb-10"
-        >
-          <span className="text-xs sm:text-[13px] font-black text-[#166534] mr-2 uppercase tracking-[0.12em]">
-            {t.filter}
-          </span>
-          {CATEGORIES.map((cat) => {
-            const active = activeCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setActiveCategory(cat)}
-                className={`rounded-sm px-4 py-2.5 text-xs sm:text-[13px] font-bold uppercase tracking-wide transition-all ${
-                  active
-                    ? "bg-[#0f172a] text-white shadow-lg shadow-[#0f172a]/25 ring-2 ring-[#facc15]/50"
-                    : "bg-white text-[#0f172a]/85 ring-1 ring-[#166534]/20 hover:bg-[#166534]/10"
-                }`}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </motion.div>
+        FPT
       </div>
 
-      <div className="relative">
-        <div
-          ref={scrollerRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory pl-4 md:pl-[max(1rem,calc((100vw-1200px)/2+1rem))] pr-16 md:pr-28 pb-4"
-        >
-          {filteredProducts.map((product) => (
-            <ShowcaseCard key={product.id} product={product} onOpen={() => setDetail(product)} />
-          ))}
+      <div className="relative mx-auto max-w-[1320px] px-4 md:px-8 lg:px-10">
+        <div className="mb-8 md:mb-10">
+          <h2 className="text-2xl font-black uppercase tracking-tight text-neutral-900 md:text-3xl">
+            {t.heading}{" "}
+            <span className="font-semibold normal-case text-neutral-400">
+              ({list.length} {countLabel})
+            </span>
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-neutral-600">{t.subtitle}</p>
         </div>
 
-        <button
-          type="button"
-          aria-label={lang === "es" ? "Desplazar" : "Scroll"}
-          onClick={() => scrollCarousel(1)}
-          className="absolute right-3 md:right-8 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-sm bg-[#0f172a] text-[#facc15] shadow-xl hover:bg-[#166534] transition-colors ring-2 ring-white/80"
-        >
-          <ChevronRight className="w-6 h-6" strokeWidth={2.5} />
-        </button>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-neutral-200 pb-5">
+          <button
+            type="button"
+            onClick={() => setSidebarVisible((v) => !v)}
+            className="hidden items-center gap-2 text-sm font-semibold text-neutral-700 hover:text-[#166534] lg:inline-flex"
+          >
+            <SlidersHorizontal className="h-4 w-4" strokeWidth={2} />
+            {sidebarVisible ? t.hideFilters : t.showFilters}
+          </button>
+
+          <label className="flex flex-1 items-center justify-end gap-2 sm:flex-initial">
+            <span className="text-xs font-semibold uppercase tracking-wide text-neutral-500">{t.sort}</span>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as SortKey)}
+              className="cursor-pointer rounded-sm border border-neutral-300 bg-white px-3 py-2 text-sm font-medium text-neutral-900 outline-none ring-[#166534] focus:ring-2"
+            >
+              <option value="default">{t.sortDefault}</option>
+              <option value="price-asc">{t.sortPriceLow}</option>
+              <option value="price-desc">{t.sortPriceHigh}</option>
+            </select>
+          </label>
+        </div>
+
+        <details className="group mb-8 rounded-sm border border-neutral-200 bg-white lg:hidden">
+          <summary className="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-bold text-neutral-900">
+            {t.mobileFilters}
+            <ChevronDown className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" />
+          </summary>
+          <div className="border-t border-neutral-100 px-4 py-3">
+            <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-neutral-500">{t.league}</p>
+            <div className="flex flex-col gap-1">
+              {CATEGORIES.map((cat) => {
+                const active = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`rounded-sm py-2.5 text-left text-sm font-medium transition-colors ${
+                      active ? "bg-[#0f172a] px-3 text-white" : "px-3 text-neutral-700 hover:bg-neutral-100"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </details>
+
+        {!sidebarVisible && (
+          <div className="mb-8 hidden flex-wrap gap-2 lg:flex">
+            {CATEGORIES.map((cat) => {
+              const active = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setActiveCategory(cat)}
+                  className={`rounded-sm border px-3 py-1.5 text-xs font-semibold transition-colors ${
+                    active
+                      ? "border-[#0f172a] bg-[#0f172a] text-white"
+                      : "border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50"
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-12">
+          <aside
+            className={`${
+              sidebarVisible ? "lg:block" : "lg:hidden"
+            } hidden w-full shrink-0 border border-neutral-200 bg-white p-5 lg:sticky lg:top-[92px] lg:w-56 lg:self-start xl:w-60`}
+          >
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-neutral-500">{t.league}</p>
+            <nav className="mt-4 flex flex-col gap-0.5" aria-label={t.league}>
+              {CATEGORIES.map((cat) => {
+                const active = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`rounded-sm py-2.5 text-left text-sm transition-colors ${
+                      active
+                        ? "bg-[#0f172a] px-3 font-semibold text-white"
+                        : "px-3 font-medium text-neutral-700 hover:bg-neutral-100"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </nav>
+          </aside>
+
+          <div className="min-w-0 flex-1">
+            {list.length === 0 ? (
+              <p className="py-16 text-center text-sm text-neutral-500">
+                {lang === "es" ? "No hay resultados con este filtro." : "No products match this filter."}
+              </p>
+            ) : (
+              <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-6 lg:grid-cols-2 xl:grid-cols-3">
+                {list.map((product) => (
+                  <li key={product.id}>
+                    <CatalogCard
+                      product={product}
+                      onOpen={() => setDetail(product)}
+                      fromLabel={t.from}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
       </div>
 
       <ProductDetailModal product={detail} onClose={() => setDetail(null)} />

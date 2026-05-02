@@ -40,12 +40,17 @@ export default function Navbar() {
     >
       <div className="h-1 w-full shrink-0 bg-gradient-to-r from-[#166534] via-[#facc15] to-[#166534]" />
       <div className="max-w-[1200px] mx-auto px-3 sm:px-5 flex items-center justify-between min-h-[54px] md:min-h-[60px] py-1 md:py-1.5">
-        <a href="#hero" className="flex items-center shrink-0 py-0.5" aria-label={lang === "es" ? "Inicio" : "Home"}>
-          <img
-            src="/logo.png"
-            alt=""
-            className="h-[3.25rem] w-auto sm:h-[3.5rem] md:h-[3.75rem] max-h-[54px] md:max-h-[60px] object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
-          />
+        <a
+          href="#hero"
+          className="group flex shrink-0 flex-col justify-center py-0.5 text-left leading-tight"
+          aria-label={lang === "es" ? "Futbol para todos — Inicio" : "Futbol para todos — Home"}
+        >
+          <span className="font-black tracking-tight text-[#4ade80] text-[0.95rem] sm:text-[1.05rem] md:text-[1.15rem]">
+            Futbol
+          </span>
+          <span className="text-[0.7rem] sm:text-[0.75rem] md:text-[0.8rem] font-bold uppercase tracking-[0.12em] text-white/90">
+            para todos
+          </span>
         </a>
 
         <nav className="hidden md:flex items-center gap-6 lg:gap-8">

@@ -1,7 +1,8 @@
 "use client";
 
+import { Instagram } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { SITE_EMAIL, SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from "@/lib/site-config";
+import { SITE_EMAIL, SITE_INSTAGRAM_URL, SITE_PHONE_DISPLAY, SITE_PHONE_E164 } from "@/lib/site-config";
 
 const CONTENT = {
   es: {
@@ -24,10 +25,19 @@ export default function Footer() {
         <p className="text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.1em] text-white/80">
           © {year} · {t.rights}
         </p>
-        <div className="flex flex-col sm:items-end gap-1.5 text-[14px] sm:text-[15px]">
+        <div className="flex flex-col sm:items-end gap-2 text-[14px] sm:text-[15px]">
+          <a
+            href={SITE_INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 font-semibold text-[#4ade80] hover:text-[#86efac] transition-colors"
+          >
+            <Instagram className="h-4 w-4 shrink-0" strokeWidth={2} />
+            @fpt.store
+          </a>
           <a
             href={`tel:${SITE_PHONE_E164.replace(/\s/g, "")}`}
-            className="font-semibold text-[#4ade80] hover:text-[#86efac] transition-colors"
+            className="font-semibold text-white/90 hover:text-[#4ade80] transition-colors"
           >
             {SITE_PHONE_DISPLAY}
           </a>

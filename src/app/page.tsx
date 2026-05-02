@@ -6,6 +6,7 @@ import Products from "@/components/Products";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import CookieBanner from "@/components/CookieBanner";
 import WhatsappFab from "@/components/WhatsappFab";
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
         </main>
         <Footer />
         <CartDrawer />
+        <CookieBanner />
         <WhatsappFab />
       </CartProvider>
     </LanguageProvider>
